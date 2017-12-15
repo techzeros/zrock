@@ -21,5 +21,12 @@ Auth::routes();
 // Post-Auth Route
 Route::get('/home', 'HomeController@index')->name('home');
 
-//admin route for our multi-auth system
+// Admin route for our multi-auth system
 Route::get('/admin','AdminController@index')->name('admin');
+
+// Admin Auth Routes
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
+});

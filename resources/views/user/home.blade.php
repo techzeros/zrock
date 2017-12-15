@@ -14,7 +14,11 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="panel-body">
+                        @component('components.who-is-logged-in')
+                        @endcomponent
+                    </div>
+                    
                 </div>
             </div>
         </div>

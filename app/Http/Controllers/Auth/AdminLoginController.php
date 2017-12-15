@@ -11,7 +11,7 @@ class AdminLoginController extends Controller
     public function __construct()
     {
         // Defining our middleware for this controller
-        $this->middleware('guest:admin',['except' => ['logout']]);
+        $this->middleware('guest:admin', ['except' => ['logout']]);
     }
 
     // Function to show admin login form

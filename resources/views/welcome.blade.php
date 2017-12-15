@@ -78,6 +78,12 @@
             @endif
 
             <div class="content">
+            
+                <div class="panel-body">
+                    @component('components.who-is-logged-in')
+                    @endcomponent
+                </div>
+
                 <div class="title m-b-md">
                     Laravel
                 </div>

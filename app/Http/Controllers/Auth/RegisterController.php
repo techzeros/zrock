@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use DB;
+use Mail;
 use App\User;
+use Illuminate\Http\Request;
+use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -66,6 +70,51 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'email_token' => str_random(10),
         ]);
+    }
+
+    /**
+     * User Registration Method
+     * Overrides the register method in the RegisterUsers trait
+     */
+    public function register(Request $request)
+    {
+        // Validate Users Input
+        $validator = $this->validator($request->all());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+ 
+        // Attempt to register a User
+        $user = $this->create($request->all());
+
+        if ($user) {
+            // Email the User Verification Token on Successful Registration
+            $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
+            
+            // Send User Activation Link
+            Mail::to($user->email)->send($email);
+
+            // Redirect User to Login Page With Appropriate Message
+            \Session::flash('message', 'Activation Link Has been Sent. Login to your Email Address for activation procedure.');
+            return redirect('login');
+        }
+        
+        // Redirect User to the previous page
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // Get the user who has the same token and change his/her status to verified i.e. 1
+    public function verify($token)
+    {
+        // The verified method has been added to the user model and chained here
+        // for better readability
+        User::where('email_token', $token)->firstOrFail()->activateUser();
+
+        // Flash Message on Successful activation
+        \Session::flash('message', 'Account Has been Activated Successfully. You can now Login.');
+        return redirect('login');
     }
 }

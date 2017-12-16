@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -38,6 +39,17 @@ class LoginController extends Controller
         $this->middleware('guest')->except(['logout', 'userLogout']);
     }
 
+    // Overrides the AuthenticateUsers Trait's credentials method
+    public function credentials(Request $request)
+    {
+        return [
+            'email' => $request->email,
+            'password' => $request->password,
+            'activated' => 1,
+        ];
+    }
+
+    // User Logout Function
     public function userLogout()
     {
         Auth::guard('web')->logout();

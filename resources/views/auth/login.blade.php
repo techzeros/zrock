@@ -6,8 +6,16 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
-
+                
                 <div class="panel-body">
+                    <div>
+                        @if (\Session::has('message'))
+                            <span class="alert alert-info">
+                                <strong>{{ session('message') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 

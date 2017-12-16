@@ -18,6 +18,9 @@ Route::get('/', function () {
 // Users Auth Route
 Auth::routes();
 
+// User Email Verification Route
+Route::get('register/verify/{token}', 'Auth\RegisterController@verify'); 
+
 // Post-Auth Route
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user/logout','Auth\LoginController@userLogout')->name('user.logout');

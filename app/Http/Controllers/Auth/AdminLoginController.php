@@ -28,6 +28,7 @@ class AdminLoginController extends Controller
             'email' => 'required|email',
             'password' => 'required|min:6',
             'pin' => 'required|min:4',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         // Attempt to login the admins in

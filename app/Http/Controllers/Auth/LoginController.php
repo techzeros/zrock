@@ -46,6 +46,7 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' => $request->password,
             'activated' => 1,
+            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 

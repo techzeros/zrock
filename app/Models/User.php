@@ -1,17 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
-use App\Notifications\AdminResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends Authenticatable
+class User extends Authenticatable
 {
     use Notifiable;
-
-    // Use the Admin Guard for Authentication
-    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -19,7 +15,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'title', 'password',
+        'name', 'email', 'password', 'email_token', 'activated',
     ];
 
     /**
@@ -31,8 +27,11 @@ class Admin extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function sendPasswordResetNotification($token)
+    // Set the verified status to true and make the email token null
+    public function activateUser()
     {
-        $this->notify(new AdminResetPasswordNotification($token));
+        $this->activated = 1;
+        $this->email_token = null;
+        $this->save();
     }
 }

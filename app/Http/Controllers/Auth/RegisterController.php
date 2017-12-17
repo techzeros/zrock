@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use DB;
 use Mail;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Mail\EmailVerification;
 use App\Http\Controllers\Controller;

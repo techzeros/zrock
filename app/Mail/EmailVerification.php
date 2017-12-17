@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -31,6 +31,6 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.user-account-verification');
+        return $this->view('vendor.notification.user-account-verification');
     }
 }

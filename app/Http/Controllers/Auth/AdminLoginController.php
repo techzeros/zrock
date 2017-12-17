@@ -24,12 +24,16 @@ class AdminLoginController extends Controller
     public function login(Request $request)
     {
         // Validate the form data
-        $this->validate($request, [
+        $validator = $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required|min:6',
             'pin' => 'required|min:4',
             // 'g-recaptcha-response' => 'required|captcha',
         ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->only('email', 'remember'));
+        }
 
         // Attempt to login the admins in
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin], $request->remember)) {
@@ -38,7 +42,7 @@ class AdminLoginController extends Controller
         }
 
         // If unsuccessfull redirect back to the login for with form data
-        return redirect()->back()->withInput($request->only('email','remember'));
+        return redirect()->back()->withErrors($validator)->withInput($request->only('email', 'remember'));
     }
 
     // Logout Function

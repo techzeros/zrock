@@ -62,9 +62,9 @@
                         </div>
                         
                         <!-- Human? -->
-                        <div class="form-group">
+                        {{--  <div class="form-group">
                             {!! app('captcha')->render(); !!}
-                        </div>
+                        </div>  --}}
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

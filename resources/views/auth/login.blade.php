@@ -48,7 +48,7 @@
                         </div>
 
                         <!-- Human? -->
-                        {!! app('captcha')->render(); !!}
+                        {{--  {!! app('captcha')->render(); !!}  --}}
                         
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">

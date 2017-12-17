@@ -39,18 +39,45 @@ class LoginController extends Controller
         $this->middleware('guest')->except(['logout', 'userLogout']);
     }
 
-    // Overrides the AuthenticateUsers Trait's credentials method
+    /**
+     * Get the needed authorization credentials from the request.
+     * Overrides the AuthenticateUsers Trait's credentials method
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+
     public function credentials(Request $request)
     {
         return [
             'email' => $request->email,
             'password' => $request->password,
             'activated' => 1,
-            'g-recaptcha-response' => 'required|captcha',
         ];
     }
 
-    // User Logout Function
+    /**
+     * Validate the user login request.
+     * Overrides the AuthenticatesUsers' validateLogin method
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     */
+    public function validateLogin(Request $request)
+    {
+        $this->validate($request, [
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+            // 'g-recaptcha-response' => 'required|captcha',
+        ]);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function userLogout()
     {
         Auth::guard('web')->logout();

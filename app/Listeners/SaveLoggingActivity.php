@@ -42,7 +42,10 @@ class SaveLoggingActivity
             $user_type = null;
         }
 
-        // dd($user_type);
+        // Flatten the GeoIP Location Object to a Simple Array
+        $geoIP = collect(geoip()->getLocation())->flatMap(function ($values) {
+            return $values;
+        });
 
         // Log User Activity
         LoginHistory::create([
@@ -50,7 +53,7 @@ class SaveLoggingActivity
             'ip_address' => request()->ip(),
             'user_type' => $user_type,
             'user_agent' => $user_agent,
-            'geoip' => geoip()->getLocation(),
+            'geoip' => $geoIP,
         ]);
     }
 

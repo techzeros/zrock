@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use Notification;
 use Illuminate\Http\Request;
 use App\Events\UserLoggedIn;
 use App\Http\Controllers\Controller;
+use App\Notifications\UserLoggedInNotification;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -84,6 +86,9 @@ class LoginController extends Controller
     {
         // Logged In User Type
         $user_type = 'user';
+
+        // Send Login Notification
+        Notification::send($user, new UserLoggedInNotification($user));
 
         // On login Success Fire the Login Activiy Event
         event(new UserLoggedIn($user, $user_type));

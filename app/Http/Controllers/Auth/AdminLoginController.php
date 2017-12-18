@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use Notification;
 use Illuminate\Http\Request;
 use App\Events\UserLoggedIn;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\UserLoggedInNotification;
 
 class AdminLoginController extends Controller
 {
@@ -72,10 +74,13 @@ class AdminLoginController extends Controller
     {
         $user = Auth::guard('admin')->user();
         $user_type = 'admin';
+        
+        // Send User Logged In Notification
+        Notification::send($user, new UserLoggedInNotification($user));
+
         // On login Success Fire the Login Activiy Event
         event(new UserLoggedIn($user, $user_type));
     }
-
 
     // Logout Function
     public function logout()

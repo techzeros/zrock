@@ -11,7 +11,13 @@ class UserLoggedInNotification extends Notification
 {
     use Queueable;
 
-    public $user;
+    public $userName;
+    public $geoIpStateName;
+    public $geoIpCountry;
+    public $ip;
+    public $browserName;
+    public $userAgent;
+    public $platformName;
 
     /**
      * Create a new notification instance.
@@ -20,7 +26,13 @@ class UserLoggedInNotification extends Notification
      */
     public function __construct($user)
     {
-        $this->user = $user;
+        $this->userName = $user->name;
+        $this->geoIpStateName = geoip()->getLocation()->state_name;
+        $this->geoIpCountry = geoip()->getLocation()->country;
+        $this->ip = request()->ip();
+        $this->browserName = \Browser::browserName();
+        $this->userAgent = \Browser::userAgent();
+        $this->platformName = \Browser::platformName();
     }
 
     /**
@@ -43,13 +55,17 @@ class UserLoggedInNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->greeting('Hello!', $this->user->name, ',')
-                    ->line('This is a notification that you logged in to ', config('app.name', 'NanoCoins'), ' was successful. Login Details are as follows:')
-                    ->line('IP Address', request()->ip)
-                    ->line('Agent/App',\Browser::browserName())
-                    ->line('User Agent',\Browser::userAgent())
-                    ->line('Platform Name', \Browser::platformName())
-                    ->line('IP Address', request()->ip);
+                    ->subject(config('app.name', 'NanoCoins') . ' - User Login Notification')
+                    ->greeting('Hello! ' . $this->userName . ',')
+                    ->line('This is a notification that your login to ' . config('app.name', 'NanoCoins') . ' was successful. Login User Agent and Location is as follows:')
+                    ->line('IP Address: ' . $this->ip)
+                    ->line('Agent/App: ' . $this->browserName)
+                    ->line('User Agent: ' . $this->userAgent)
+                    ->line('Platform Name: ' . $this->platformName)
+                    ->line('Location: ' . $this->geoIpStateName . " (" . $this->geoIpCountry . ")")
+                    ->line('Date/Time: ' . now())
+                    ->line('If it was not you that logged in, then your login details might have been compromised. Please reset your password immediately.');
+                
     }
 
     /**

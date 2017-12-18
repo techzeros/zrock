@@ -11,7 +11,7 @@ class LoginHistory extends Model
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'ip_address', 'user_type', 'user_agent'];
+    protected $fillable = ['user_id', 'ip_address', 'user_type', 'user_agent', 'geoip'];
 
     /**
      * The attributes that should be cast to native types.
@@ -20,5 +20,6 @@ class LoginHistory extends Model
      */
     protected $casts = [
         'user_agent' => 'array',
+        'geoip' => 'array',
     ];
 }

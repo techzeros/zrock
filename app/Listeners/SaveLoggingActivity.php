@@ -50,6 +50,7 @@ class SaveLoggingActivity
             'ip_address' => request()->ip(),
             'user_type' => $user_type,
             'user_agent' => $user_agent,
+            'geoip' => geoip()->getLocation(),
         ]);
     }
 

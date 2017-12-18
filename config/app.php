@@ -180,6 +180,7 @@ return [
         AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         App\Providers\NanoCoinsServiceProvider::class,
         \hisorange\BrowserDetect\ServiceProvider::class,
+        \Torann\GeoIP\GeoIPServiceProvider::class,
 
     ],
 
@@ -230,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Browser' => \hisorange\BrowserDetect\Facade::class,
+        'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
 
     ],
 

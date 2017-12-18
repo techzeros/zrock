@@ -2,6 +2,8 @@
     <p class="text-success">
         You are logged in as <strong>User</strong>
          ID is {{ auth()->id() }}
+         <br />
+         {{ var_dump('<pre>', Browser::detect(), '</pre>') }}
     </p>
     @else
     <p class="text-danger">
@@ -14,6 +16,8 @@
         You are logged in as <strong>Admin</strong>
         <br />
         ID is {{ auth()->id() }}
+        <br />
+        {{ var_dump('<pre>', Browser::detect(), '</pre>') }}
     </p>
 @else
     <p class="text-danger">

@@ -31,6 +31,7 @@ class SaveLoggingActivity
 
         $user_id = $event->user->id;
         $user_type = $event->user_type;
+        $user_agent = \Browser::detect();
 
         // Determine the type of User
         if ($user_type == 'admin') {
@@ -48,6 +49,7 @@ class SaveLoggingActivity
             'user_id' => $user_id,
             'ip_address' => request()->ip(),
             'user_type' => $user_type,
+            'user_agent' => $user_agent,
         ]);
     }
 

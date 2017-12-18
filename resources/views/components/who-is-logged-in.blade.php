@@ -3,7 +3,8 @@
         You are logged in as <strong>User</strong>
          ID is {{ auth()->id() }}
          <br />
-         {{ var_dump('<pre>', Browser::detect(), '</pre>') }}
+        
+        {{ \Browser::browserName() }}
     </p>
     @else
     <p class="text-danger">
@@ -17,7 +18,7 @@
         <br />
         ID is {{ auth()->id() }}
         <br />
-        {{ var_dump('<pre>', Browser::detect(), '</pre>') }}
+        {{ \Browser::browserName() }}
     </p>
 @else
     <p class="text-danger">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Illuminate\Http\Request;
+use App\Events\UserLoggedIn;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,6 +50,10 @@ class AdminLoginController extends Controller
 
         // Attempt to login the admins in
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin], $request->remember)) {
+            
+            // Trigger UserLoggedIn Event
+            $this->authenticated();
+
             // If successful redirect to admin dashboard
             return redirect()->intended(route('admin.dashboard'));
         }
@@ -57,6 +62,20 @@ class AdminLoginController extends Controller
         $request->session()->flash('loginFailed', 'Incorrect Login Details!');
         return redirect()->back()->withInput($request->only('email', 'remember'));
     }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @return mixed
+     */
+    protected function authenticated()
+    {
+        $user = Auth::guard('admin')->user();
+        $user_type = 'admin';
+        // On login Success Fire the Login Activiy Event
+        event(new UserLoggedIn($user, $user_type));
+    }
+
 
     // Logout Function
     public function logout()

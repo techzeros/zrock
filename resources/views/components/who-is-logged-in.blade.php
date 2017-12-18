@@ -1,6 +1,7 @@
 @if(Auth::guard('web')->check())
     <p class="text-success">
         You are logged in as <strong>User</strong>
+         ID is {{ auth()->id() }}
     </p>
     @else
     <p class="text-danger">
@@ -11,6 +12,8 @@
 @if(Auth::guard('admin')->check())
     <p class="text-success">
         You are logged in as <strong>Admin</strong>
+        <br />
+        ID is {{ auth()->id() }}
     </p>
 @else
     <p class="text-danger">

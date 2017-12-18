@@ -176,7 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Custom Service Providers by NanoCoins
         AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
+        App\Providers\NanoCoinsServiceProvider::class,
 
     ],
 

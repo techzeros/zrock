@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use Illuminate\Http\Request;
+use App\Events\UserLoggedIn;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -70,6 +71,22 @@ class LoginController extends Controller
             'password' => 'required|string',
             // 'g-recaptcha-response' => 'required|captcha',
         ]);
+    }
+
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        // Logged In User Type
+        $user_type = 'user';
+
+        // On login Success Fire the Login Activiy Event
+        event(new UserLoggedIn($user, $user_type));
     }
 
     /**

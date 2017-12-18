@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AdminLoginController extends Controller
 {
@@ -20,16 +21,27 @@ class AdminLoginController extends Controller
         return view('auth.admin-login');
     }
 
-    // Function to login admins
-    public function login(Request $request)
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
     {
-        // Validate the form data
-        $validator = $this->validate($request, [
+        return Validator::make($data, [
             'email' => 'required|email',
             'password' => 'required|min:6',
             'pin' => 'required|min:4',
             // 'g-recaptcha-response' => 'required|captcha',
         ]);
+    }
+
+    // Function to login admins
+    public function login(Request $request)
+    {
+        // Validate the form data
+        $validator = $this->validator($request->all());
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($request->only('email', 'remember'));
@@ -42,7 +54,8 @@ class AdminLoginController extends Controller
         }
 
         // If unsuccessfull redirect back to the login for with form data
-        return redirect()->back()->withErrors($validator)->withInput($request->only('email', 'remember'));
+        $request->session()->flash('loginFailed', 'Incorrect Login Details!');
+        return redirect()->back()->withInput($request->only('email', 'remember'));
     }
 
     // Logout Function

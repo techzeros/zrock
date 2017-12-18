@@ -82,7 +82,7 @@
                 <h4>
                     {{ config('app.name', 'NanoCoins') }} is the Nigeria’s most popular ewallet for Crypto Coins. We are on a mission to build a more open, accessible, and fair financial future, one piece of software at a time.
                 </h4>
-                <a href="#" class="btn btn-theme">Login</a> <a href="#" class="btn btn-outline">Register</a><br />
+                <a href="{{ route('login') }}" class="btn btn-theme">Login</a> <a href="{{ route('register') }}" class="btn btn-outline">Register</a><br />
                 <br />
             </div>
             <!-- end container -->

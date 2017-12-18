@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('site.index');
 });
 
+Route::view('/sample', 'admin.sample');
+
 // Users Auth Route
 Auth::routes();
 

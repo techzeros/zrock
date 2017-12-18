@@ -7,6 +7,11 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Admin Login</div>
                     <div class="panel-body">
+
+                        @if(\Session::has('loginFailed'))
+                            <div class="alert alert-danger"> {{ \Session::get('loginFailed') }} </div>
+                        @endif
+
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('admin.login.submit') }}">
                             {{ csrf_field() }}
 

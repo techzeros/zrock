@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::view('/sample', 'admin.sample');
+Route::view('/signup', 'site.sample-signup');
 
 // Users Auth Route
 Auth::routes();

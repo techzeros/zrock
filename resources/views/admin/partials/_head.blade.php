@@ -6,7 +6,8 @@
 
 <head>
 	<meta charset="utf-8" />
-     <!-- CSRF Token -->
+    
+	<!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{--  Page Title  --}}

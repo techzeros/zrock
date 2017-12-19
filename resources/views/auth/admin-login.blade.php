@@ -43,7 +43,7 @@
                     <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('admin.login.submit') }}">
                         {{ csrf_field() }}
                         <div class="form-group m-b-15{{ $errors->has('email') ? ' has-error has-feedback' : '' }}">
-                            <input type="text" class="form-control input-lg" name="email" placeholder="Email Address" value="{{ old('email') }}" data-type="alphanum" data-parsley-required="true" />
+                            <input type="email" class="form-control input-lg" name="email" placeholder="Email Address" value="{{ old('email') }}" data-type="email" data-parsley-required="true" />
                             @if ($errors->has('email'))
                                 <span class="text-danger">
                                     <strong>{{ $errors->first('email') }}</strong>

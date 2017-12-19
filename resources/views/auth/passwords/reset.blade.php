@@ -1,70 +1,88 @@
-@extends('layouts.app')
+@extends('layouts.auth')
+    
+    @section('title', 'Reset Password')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+    @section('custom_styles')
+        <!-- ================== BEGIN PAGE LEVEL STYLE ================== -->
+        <link href="{{ asset('portal/plugins/parsley/src/parsley.css') }}" rel="stylesheet" />
+        <!-- ================== END PAGE LEVEL STYLE ================== -->
+    @endsection
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('password.request') }}">
+    @section('auth-news-feed')
+        <!-- begin login -->
+        <div class="login login-with-news-feed">
+    @endsection
+
+    @section('content')
+                <!-- begin login-header -->
+                <div class="login-header">
+                    <div class="brand">
+                        <span class="logo"></span>Reset Password
+                        <small>Change your password.</small>
+                    </div>
+                    <div class="icon">
+                        <i class="material-icons">edit</i>
+                    </div>
+                </div>
+                <!-- end login-header -->
+
+                <!-- begin login-content -->
+                <div class="login-content">
+
+                    @if (\Session::has('status'))
+                        <div class="alert alert-success fade in m-b-15">
+                             <strong>{{ session('status') }}</strong>
+                        </div>
+                    @endif
+                    
+                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('password.request') }}">
+                        
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="form-group m-b-15{{ $errors->has('email') ? ' has-error has-feedback' : '' }}">
+                            <input type="email" class="form-control input-lg" name="email" placeholder="Email Address" value="{{ $email or old('email') }}" data-type="email" data-parsley-required="true" autofocus />
+                            @if ($errors->has('email'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="form-group m-b-15{{ $errors->has('password') ? ' has-error has-feedback' : '' }}">
+                            <input type="password" class="form-control input-lg" id="password" name="password" placeholder="Password" data-type="password" data-parsley-required="true" />
+                            @if ($errors->has('password'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                        <div class="form-group m-b-15{{ $errors->has('password_confirmation') ? ' has-error has-feedback' : '' }}">
+                            <input type="password" class="form-control input-lg" name="password_confirmation" placeholder="Re-enter Password" data-parsley-equalto="#password" data-type="password" data-parsley-required="true" />
+                            @if ($errors->has('password_confirmation'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                </span>
+                            @endif
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Reset Password
-                                </button>
-                            </div>
+                                                
+                        <div class="register-buttons">
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Reset Password</button>
                         </div>
+                        
+                        <hr />
+                        <p class="text-center">
+                            &copy; {{ date('Y') }} {{ config('app.name', 'NanoCoins') }} | All Right Reserved.
+                        </p>
                     </form>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+                <!-- end login-content -->
+    @endsection
+
+    @section('custom_js')
+        <!-- ================== BEGIN PAGE LEVEL JS ================== -->
+        <script src="{{ asset('portal/plugins/parsley/dist/parsley.js') }}"></script>
+        <!-- ================== END PAGE LEVEL JS ================== -->
+    @endsection

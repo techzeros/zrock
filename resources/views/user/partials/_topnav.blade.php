@@ -74,7 +74,7 @@
 							<li><a href="javascript:;">Setting</a></li>
 							<li class="divider"></li>
 							{{--  <li><a href="javascript:;">Log Out</a></li>  --}}
-                            @component('components.admin-logout')
+                            @component('components.user-logout')
                             @endcomponent
 						</ul>
 					</li>

@@ -11,7 +11,7 @@
                             </div>
                             <div class="info">
                                 <b class="caret pull-right"></b>
-                                John Smith
+                                {{ Auth::user()->name }}
                                 <small>Front end developer</small>
                             </div>
 						</a>

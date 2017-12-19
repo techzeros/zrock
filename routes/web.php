@@ -26,7 +26,7 @@ Route::get('register/verify/{token}', 'Auth\RegisterController@verify');
 
 // Post-Auth Route
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/user/logout','Auth\LoginController@userLogout')->name('user.logout');
+Route::post('/user/logout','Auth\LoginController@userLogout')->name('user.logout');
 
 // Admin route for our multi-auth system
 Route::get('/admin','AdminController@index')->name('admin');
@@ -36,7 +36,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
+    Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');
 
     // Admin password reset routes
     Route::post('/password/email','Auth\AdminForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');

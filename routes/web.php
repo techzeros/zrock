@@ -26,10 +26,10 @@ Route::get('register/verify/{token}', 'Auth\RegisterController@verify');
 
 // Post-Auth Route
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('/user/logout','Auth\LoginController@userLogout')->name('user.logout');
+// Route::post('/user/logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 // Admin route for our multi-auth system
-Route::get('/admin','AdminController@index')->name('admin');
+Route::get('/admin', 'AdminController@index')->name('admin');
 
 // Admin Auth Routes
 Route::prefix('admin')->group(function () {

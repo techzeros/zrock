@@ -28,14 +28,12 @@
 
                 <!-- begin login-content -->
                 <div class="login-content">
-                    
                     @if(\Session::has('loginFailed'))
                         <div class="alert alert-danger"> {{ session('loginFailed') }} </div>
                     @endif
 
                     @if (\Session::has('message'))
                         <div class="alert alert-success fade in m-b-15">
-                            <strong>Message!</strong>
                              <strong>{{ session('message') }}</strong>
                         </div>
                     @endif

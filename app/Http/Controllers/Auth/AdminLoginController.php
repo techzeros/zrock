@@ -57,7 +57,8 @@ class AdminLoginController extends Controller
             $this->authenticated();
 
             // If successful redirect to admin dashboard
-            return redirect()->intended(route('admin.dashboard'));
+            // return redirect()->intended(route('admin.dashboard'));
+            return redirect()->route('admin.dashboard');
         }
 
         // If unsuccessfull redirect back to the login for with form data
@@ -85,8 +86,11 @@ class AdminLoginController extends Controller
     // Logout Function
     public function logout()
     {
-        // Logout Admin and Redirect to Home Page
+        // Logout Admin
         Auth::guard('admin')->logout();
-        return redirect('/');
+
+        // Set Flash Message and redirect to Login Page
+        \Session::flash('message', 'You have successfully logged out!');
+        return redirect()->route('admin.login');
     }
 }

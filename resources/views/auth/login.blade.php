@@ -31,7 +31,6 @@
 
                     @if (\Session::has('message'))
                         <div class="alert alert-success fade in m-b-15">
-                            <strong>Message!</strong>
                              <strong>{{ session('message') }}</strong>
                             <span class="close" data-dismiss="alert">×</span>
                         </div>

@@ -16,7 +16,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a href="{{ route('admin.dashboard') }}" class="navbar-brand">
+					<a href="{{ route('home') }}" class="navbar-brand">
 					    {{ config('app.name', 'NanoCoins') }}
 					</a>
 				</div>

@@ -76,6 +76,22 @@ class LoginController extends Controller
     }
 
     /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+                ?: redirect()->route('home');
+    }
+
+    /**
      * The user has been authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -100,9 +116,14 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function userLogout()
+    public function logout(Request $request)
     {
+        // Logout User
         Auth::guard('web')->logout();
-        return redirect('/');
+        // $request->session()->invalidate();
+
+        // Set Flash Message and redirect to Login Page
+        \Session::flash('message', 'You have successfully logged out!');
+        return redirect()->route('login');
     }
 }

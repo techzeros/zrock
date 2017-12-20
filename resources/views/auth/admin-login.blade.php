@@ -71,8 +71,12 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="register-buttons">
+                        <div class="login-buttons">
                             <button type="submit" class="btn btn-info btn-block btn-lg">Login</button>
+                        </div>
+                        <br />
+                        <div>
+                            <a href="{{ route('admin.login.request') }}" class="btn btn-primary btn-block">Request Login Authorization</a>
                         </div>
                         <br />
                         <div>

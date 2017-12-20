@@ -34,6 +34,8 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 // Admin Auth Routes
 Route::prefix('admin')->group(function () {
     Route::get('/', 'AdminController@index')->name('admin.dashboard');
+    Route::get('/loginRequest', 'Auth\AdminLoginController@showLoginRequestForm')->name('admin.login.request');
+    Route::post('/loginRequest', 'Auth\AdminLoginController@requestLoginPin')->name('admin.login.request.submit');
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::post('/logout','Auth\AdminLoginController@logout')->name('admin.logout');

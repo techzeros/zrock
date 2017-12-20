@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
+use Mail;
 use Notification;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Events\UserLoggedIn;
+use App\Mail\AdminLoginRequestPin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\UserLoggedInNotification;
@@ -22,6 +25,42 @@ class AdminLoginController extends Controller
     public function showLoginForm()
     {
         return view('auth.admin-login');
+    }
+
+    // Show Login Pin Generation Request
+    public function showLoginRequestForm()
+    {
+        return view('auth.admin-login-request-pin');
+    }
+
+    // Function to handle Admin Login Request
+    public function requestLoginPin(Request $request)
+    {
+        $email = $request->input('email');
+        $login_request_code = $request->input('login_request_code');
+        $admin = Admin::where(['email' => $email, 'login_request_code' => $login_request_code])->first();
+
+        if ($admin != null) {
+
+            // Generate PIN
+            $pin = random_int(1111, 9999);
+            
+            // Update the Admin Pin
+            $admin->pin = $pin;
+            $admin->allow_login = 1;
+            $admin->save();
+            
+            // Email the User Verification Token on Successful Registration
+            $email = new AdminLoginRequestPin($admin);
+            
+            // Send User Activation Link
+            Mail::to($admin->email)->send($email);
+
+            \Session::flash('message', 'Login Request Authorization Details has been emailed to you!');
+            return redirect()->route('admin.login');
+        }
+
+        return redirect()->back()->withInput()->with('error', 'Invalid Login Request Details!');
     }
 
     /**
@@ -51,7 +90,7 @@ class AdminLoginController extends Controller
         }
 
         // Attempt to login the admins in
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin], $request->remember)) {
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin, 'allow_login' => 1], $request->remember)) {
             
             // Trigger UserLoggedIn Event
             $this->authenticated();
@@ -76,6 +115,11 @@ class AdminLoginController extends Controller
         $user = Auth::guard('admin')->user();
         $user_type = 'admin';
         
+        // Reset Admin PIN
+        $user->pin = null;
+        $user->allow_login = null;
+        $user->save();
+
         // Send User Logged In Notification
         Notification::send($user, new UserLoggedInNotification($user));
 

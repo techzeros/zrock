@@ -12,16 +12,18 @@ class LoginRequestPin extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $admin;
+    public $admin_name;
+    public $login_link;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Admin $admin)
+    public function __construct(Admin $admin, $login_token)
     {
-        $this->admin = $admin;
+        $this->admin_name = $admin->name;
+        $this->login_link = 'admin/login/' . $admin->email . '/' . $login_token;
     }
 
     /**

@@ -35,6 +35,13 @@
                             <span class="close" data-dismiss="alert">×</span>
                         </div>
                     @endif
+
+                    @if (\Session::has('message'))
+                        <div class="alert alert-success fade in m-b-15">
+                             <strong>{{ session('message') }}</strong>
+                            <span class="close" data-dismiss="alert">×</span>
+                        </div>
+                    @endif
                     
                     <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('admin.login.request.submit') }}">
                         
@@ -45,7 +52,7 @@
                         </div>
 
                         <div class="form-group m-b-15">
-                            <input type="text" class="form-control input-lg" name="login_request_code" placeholder="Request Code" data-type="text" data-parsley-required="true" />
+                            <input type="text" class="form-control input-lg" name="pin" placeholder="Pin" data-type="text" data-parsley-required="true" />
                         </div>
                                                 
                         <div class="register-buttons">

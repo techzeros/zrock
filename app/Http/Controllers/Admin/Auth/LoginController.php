@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Events\UserLoggedIn;
 use App\Mail\Admin\LoginRequestPin;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AdminLoginRequest;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\LoggedInNotification;
 
@@ -22,7 +23,7 @@ class LoginController extends Controller
     }
 
     // Function to show admin login form
-    public function showLoginForm()
+    public function showLoginForm($email, $token)
     {
         return view('admin.auth.login.index');
     }
@@ -37,27 +38,27 @@ class LoginController extends Controller
     public function requestLoginPin(Request $request)
     {
         $email = $request->input('email');
-        $login_request_code = $request->input('login_request_code');
-        $admin = Admin::where(['email' => $email, 'login_request_code' => $login_request_code])->first();
+        $pin = $request->input('pin');
+        $admin = Admin::where(['email' => $email, 'pin' => $pin])->first();
 
         if ($admin != null) {
 
             // Generate PIN
-            $pin = random_int(1111, 9999);
+            $login_token = bin2hex(random_bytes(5));
+            // $login_token = encrypt(random_int(1111, 9999));
             
-            // Update the Admin Pin
-            $admin->pin = $pin;
-            $admin->allow_login = 1;
-            $admin->save();
-            
-            // Email the User Verification Token on Successful Registration
-            $email = new AdminLoginRequestPin($admin);
-            
-            // Send User Activation Link
-            Mail::to($admin->email)->send($email);
+            // Create Admin Login Request
+            if (AdminLoginRequest::create(['admin_id' => $admin->id, 'login_token' => $login_token])) {
+                // Email the User Verification Token on Successful Application
+                $email = new LoginRequestPin($admin, $login_token);
+                
+                // Send User Activation Link
+                Mail::to($admin->email)->send($email);
 
-            \Session::flash('message', 'Login Request Authorization Details has been emailed to you!');
-            return redirect()->route('admin.login');
+                return redirect()->back()->with('message', 'Login Authorization link has been emailed to you.');
+            }
+
+            return redirect()->back()->withInput()->with('error', 'Error Occured. Retry!');
         }
 
         return redirect()->back()->withInput()->with('error', 'Invalid Login Request Details!');
@@ -90,7 +91,7 @@ class LoginController extends Controller
         }
 
         // Attempt to login the admins in
-        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin, 'allow_login' => 1], $request->remember)) {
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'pin' => $request->pin], $request->remember)) {
             
             // Trigger UserLoggedIn Event
             $this->authenticated();
@@ -114,11 +115,9 @@ class LoginController extends Controller
     {
         $user = Auth::guard('admin')->user();
         $user_type = 'admin';
-        
-        // Reset Admin PIN
-        $user->pin = null;
-        $user->allow_login = null;
-        $user->save();
+
+        // Delete Login Request for the authenticated admin
+        AdminLoginRequest::where(['admin_id' => $user->id])->delete();
 
         // Send User Logged In Notification
         Notification::send($user, new LoggedInNotification($user));
@@ -134,7 +133,6 @@ class LoginController extends Controller
         Auth::guard('admin')->logout();
 
         // Set Flash Message and redirect to Login Page
-        \Session::flash('message', 'You have successfully logged out!');
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login.request')->with('message', 'You have successfully logged out!');
     }
 }

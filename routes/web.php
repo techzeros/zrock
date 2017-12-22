@@ -59,7 +59,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'Admin\DashboardController@index')->name('admin.dashboard');
     Route::get('/loginRequest', 'Admin\Auth\LoginController@showLoginRequestForm')->name('admin.login.request');
     Route::post('/loginRequest', 'Admin\Auth\LoginController@requestLoginPin')->name('admin.login.request.submit');
-    Route::get('/login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
+    Route::get('/login/{email}/{token}', 'Admin\Auth\LoginController@showLoginForm')->middleware('accessadminlogin')->name('admin.login');
     Route::post('/login', 'Admin\Auth\LoginController@login')->name('admin.login.submit');
     Route::post('/logout','Admin\Auth\LoginController@logout')->name('admin.logout');
 

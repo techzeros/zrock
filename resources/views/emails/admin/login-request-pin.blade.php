@@ -71,17 +71,38 @@ $style = [
                                     <td style="{{ $fontFamily }} {{ $style['email-body_cell'] }}">
                                         <!-- Greeting -->
                                         <h1 style="{{ $style['header-1'] }}">
-                                            Hello {{ $admin->name }},
+                                            Hello {{ $admin_name }},
                                         </h1>
 
                                         <!-- Intro -->
                                        
                                             <p style="{{ $style['paragraph'] }}">
-                                                You have requested for a Login Pin. If it is not you that requested the pin kindly ignore this message. Otherwise use the PIN below 
+                                                You have requested for a Login Page. If it is not you that requested the pin kindly ignore this message. Otherwise proceed by clicking the button below 
                                             </p>
 
+                                            <!-- Action Button -->
+                                       
+                                            <table style="{{ $style['body_action'] }}" align="center" width="100%" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                    <td align="center">
+                                                        <?php
+                                                            $actionColor = 'button--blue';
+                                                        ?>
+
+                                                        <a href="{{ url($login_link) }}"
+                                                            style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
+                                                            class="button"
+                                                            target="_blank">
+                                                            Go to Login Page
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
                                             <p style="{{ $style['paragraph'] }}">
-                                                PIN: <strong>{{ $admin->pin }}</strong>
+                                                If the button above is not working in your browser, simply copy the link below and page it in your browser:
+                                                <br />
+                                                {{ url($login_link) }}
                                             </p>
 
                                         <!-- Action Button -->

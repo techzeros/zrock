@@ -1,15 +1,15 @@
-@include('user.partials._head')
+@include('partials.user._head')
 
-    @include('user.partials._begin-container')
+    @include('partials.user._begin-container')
 	
-    @include('user.partials._topnav')
+    @include('partials.user._topnav')
             
-    @include('user.partials._nav')
+    @include('partials.user._nav')
 
-    @include('user.partials._alerts')
+    @include('partials.user._alerts')
 
     @yield('content')
 
-    @include('user.partials._end-container')
+    @include('partials.user._end-container')
 
-@include('user.partials._footer')
+@include('partials.user._footer')

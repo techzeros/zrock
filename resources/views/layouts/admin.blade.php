@@ -1,15 +1,15 @@
-@include('admin.partials._head')
+@include('partials.admin._head')
 
-    @include('admin.partials._begin-container')
+    @include('partials.admin._begin-container')
 	
-    @include('admin.partials._topnav')
+    @include('partials.admin._topnav')
             
-    @include('admin.partials._nav')
+    @include('partials.admin._nav')
 
-    @include('admin.partials._alerts')
+    @include('partials.admin._alerts')
 
     @yield('content')
 
-    @include('admin.partials._end-container')
+    @include('partials.admin._end-container')
 
-@include('admin.partials._footer')
+@include('partials.admin._footer')

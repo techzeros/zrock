@@ -35,7 +35,7 @@
                         </div>
                     @endif
                     
-                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('password.request') }}">
+                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('reset.user.password') }}">
                         
                         {{ csrf_field() }}
 

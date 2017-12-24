@@ -11,7 +11,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{--  Page Title  --}}
-	<title>{{ config('app.name', 'NanoCoins') }} | @yield('title')</title>
+	<title>{{ config('app.name', 'NanoCoins Admin') }} | @yield('title')</title>
 
     {{--  Meta Tags  --}}
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />

@@ -16,25 +16,51 @@ use App\Notifications\LoggedInNotification;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Admin Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating admins for the application and
+    | redirecting them to your admin dashboard screen.
+    |
+    */
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
-        // Defining our middleware for this controller
         $this->middleware('guest:admin', ['except' => ['logout']]);
     }
 
-    // Function to show admin login form
-    public function showLoginForm($email, $token)
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
     {
         return view('admin.auth.login.index');
     }
 
-    // Show Login Pin Generation Request
+    /**
+     * Show the application's login request form.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function showLoginRequestForm()
     {
         return view('admin.auth.login.request-pin');
     }
 
-    // Function to handle Admin Login Request
+    /**
+     * Handles the admins login request
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function requestLoginPin(Request $request)
     {
         $email = $request->input('email');
@@ -80,7 +106,12 @@ class LoginController extends Controller
         ]);
     }
 
-    // Function to login admins
+    /**
+     * Handle admin login request to the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     */
     public function login(Request $request)
     {
         // Validate the form data
@@ -126,7 +157,12 @@ class LoginController extends Controller
         event(new UserLoggedIn($user, $user_type));
     }
 
-    // Logout Function
+    /**
+     * Log the admin out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function logout()
     {
         // Logout Admin

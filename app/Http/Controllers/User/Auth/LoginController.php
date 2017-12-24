@@ -30,7 +30,12 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    // protected $redirectTo = '/home';
+
+    protected function redirectTo()
+    {
+        return route('user.dashboard');
+    }
 
     /**
      * Create a new controller instance.
@@ -98,7 +103,7 @@ class LoginController extends Controller
         $this->clearLoginAttempts($request);
 
         return $this->authenticated($request, $this->guard()->user())
-                ?: redirect()->route('home');
+                ?: redirect($this->redirectTo());
     }
 
     /**
@@ -134,6 +139,6 @@ class LoginController extends Controller
 
         // Set Flash Message and redirect to Login Page
         \Session::flash('message', 'You have successfully logged out!');
-        return redirect()->route('login');
+        return redirect()->route('user.login.form');
     }
 }

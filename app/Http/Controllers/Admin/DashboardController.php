@@ -14,7 +14,10 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:admin');
+        // // $this->middleware('auth:admin');
+        // $admin = \App\Models\Admin\Admin::find(1);
+        // \Auth::guard('admin')->login($admin);
+        
     }
 
     /**

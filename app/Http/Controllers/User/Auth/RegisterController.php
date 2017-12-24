@@ -32,7 +32,10 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function redirectTo()
+    {
+        return route('user.login.form');
+    }
 
     /**
      * Create a new controller instance.
@@ -115,7 +118,7 @@ class RegisterController extends Controller
 
             // Redirect User to Login Page With Appropriate Message
             \Session::flash('message', 'Activation Link Has been Sent. Login to your Email Address for activation procedure.');
-            return redirect('login');
+            return redirect()->route('user.login.form');
         }
         
         // Redirect User to the previous page
@@ -131,6 +134,6 @@ class RegisterController extends Controller
 
         // Flash Message on Successful activation
         \Session::flash('message', 'Account Has been Activated Successfully. You can now Login.');
-        return redirect('login');
+        return redirect()->route('user.login.form');
     }
 }

@@ -93,7 +93,7 @@ $style = [
                                                             $actionColor = 'button--blue';
                                                         ?>
 
-                                                        <a href="{{ url('register/verify/'.$user->email_token) }}"
+                                                        <a href="{{ route('verify.user.email', ['token' => $user->email_token]) }}"
                                                             style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
                                                             class="button"
                                                             target="_blank">

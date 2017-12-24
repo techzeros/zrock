@@ -36,7 +36,7 @@
                         </div>
                     @endif
                     
-                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('login') }}">
+                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('login.user') }}">
                         {{ csrf_field() }}
                         <div class="form-group m-b-15{{ $errors->has('email') ? ' has-error has-feedback' : '' }}">
                             <input type="email" class="form-control input-lg" name="email" placeholder="Email Address" value="{{ old('email') }}" data-type="email" data-parsley-required="true" />
@@ -66,11 +66,11 @@
                         </div>
                         <br />
                         <div>
-                            <a href="{{ route('password.request') }}" class="btn btn-white btn-block">Forgot Your Password?</a>
+                            <a href="{{ route('password.request.form') }}" class="btn btn-white btn-block">Forgot Your Password?</a>
                         </div>
     
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
-                            Don't have an Account? Click <a href="{{ route('register') }}">here</a> to register.
+                            Don't have an Account? Click <a href="{{ route('user.registration.form') }}">here</a> to register.
                         </div>
                         <hr />
                         <p class="text-center">

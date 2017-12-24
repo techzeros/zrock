@@ -24,9 +24,12 @@ class ResetPasswordController extends Controller
     /**
      * Where to redirect users after resetting their password.
      *
-     * @var string
+     * @return Illuminte\Http\Request
      */
-    protected $redirectTo = '/home';
+    protected function redirectTo()
+    {
+        return route('user.dashboard');
+    }
 
     /**
      * Create a new controller instance.

@@ -22,7 +22,7 @@
                 <!-- end register-header -->
                 <!-- begin register-content -->
                 <div class="register-content">
-                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('register') }}">
+                    <form data-parsley-validate="true" class="margin-bottom-0" method="POST" action="{{ route('register.user') }}">
                         {{ csrf_field() }}
                         <label class="control-label" for="name">Name <span class="text-danger">*</span></label>
                         <div class="row m-b-15{{ $errors->has('name') ? ' has-error has-feedback' : '' }}">
@@ -75,7 +75,7 @@
                             <button type="submit" class="btn btn-info btn-block btn-lg">Sign Up</button>
                         </div>
                         <div class="m-t-20 m-b-40 p-b-40 text-inverse">
-                            Already a member? Click <a href="{{ route('login') }}">here</a> to login.
+                            Already a member? Click <a href="{{ route('user.login.form') }}">here</a> to login.
                         </div>
                         <hr />
                         <p class="text-center">

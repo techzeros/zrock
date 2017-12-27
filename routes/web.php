@@ -85,7 +85,7 @@ Route::group(['middleware' => 'guest:admin', 'prefix' => 'adminAuth'], function 
 
     // Login form route
     Route::group(['middleware' => 'accessadminlogin'], function () {
-        Route::get('/login/{email}/{token}', 'Admin\Auth\LoginController@showLoginForm')->middleware('accessadminlogin')->name('admin.login');
+        Route::get('/login/{email}/{token}', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
     });
 });
 

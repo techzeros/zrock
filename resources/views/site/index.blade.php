@@ -201,7 +201,7 @@
                     <div class="col-md-3 col-sm-3 milestone-col">
                         <div class="milestone">
                             <div class="number" data-animation="true" data-animation-type="number" data-final-number="1292">1,292</div>
-                            <div class="title">Themes & Template</div>
+                            <div class="title">Themes &amp; Template</div>
                         </div>
                     </div>
                     <!-- end col-3 -->
@@ -370,7 +370,7 @@
                         <div class="service">
                             <div class="icon bg-theme" data-animation="true" data-animation-type="bounceIn"><i class="fa fa-paint-brush"></i></div>
                             <div class="info">
-                                <h4 class="title">Clean & Careful Design</h4>
+                                <h4 class="title">Clean &amp; Careful Design</h4>
                                 <p class="desc">Etiam nulla turpis, gravida et orci ac, viverra commodo ipsum. Donec nec mauris faucibus, congue nisi sit amet, lobortis arcu.</p>
                             </div>
                         </div>

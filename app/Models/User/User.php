@@ -2,6 +2,8 @@
 
 namespace App\Models\User;
 
+use Auth;
+use App\Models\User\Credential;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -38,5 +40,29 @@ class User extends Authenticatable
     public function userAgent()
     {
         return \Browser::detect();
+    }
+
+    public function crendentials()
+    {
+        return $this->hasMany(Credential::class);
+    }
+
+    public function isIdentified()
+    {
+        $userId = Auth::guard('web')->id;
+
+        // if ($this->credentials->user_id == $userId)
+
+
+
+
+
+
+
+        if (($this->is_identified == 1) && ($this->credentials->docType() == true)) {
+            return true;
+        }
+
+        return false;
     }
 }

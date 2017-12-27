@@ -78,7 +78,7 @@ class Handler extends ExceptionHandler
                 $login = 'admin.login.request';
                 break;
             default:
-                $login = 'login';
+                $login = 'user.login.form';
                 break;
         }
 

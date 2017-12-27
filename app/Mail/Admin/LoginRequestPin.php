@@ -23,7 +23,7 @@ class LoginRequestPin extends Mailable
     public function __construct(Admin $admin, $login_token)
     {
         $this->admin_name = $admin->name;
-        $this->login_link = 'admin/login/' . $admin->email . '/' . $login_token;
+        $this->login_link = route('admin.login', ['email' => $admin->email, 'token' => $login_token]);
     }
 
     /**

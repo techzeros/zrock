@@ -12,6 +12,10 @@
   */
 Route::view('/', 'site.index');
 
+/**
+ * Test Routes
+ */
+Route::get('/test', 'TestController@index');
 
 /**
  * Guest Routes

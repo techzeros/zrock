@@ -29,40 +29,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    // Set the verified status to true and make the email token null
-    public function activateUser()
-    {
-        $this->activated = 1;
-        $this->email_token = null;
-        $this->save();
-    }
-
-    public function userAgent()
-    {
-        return \Browser::detect();
-    }
-
     public function crendentials()
     {
         return $this->hasMany(Credential::class);
     }
 
-    public function isIdentified()
-    {
-        $userId = Auth::guard('web')->id;
-
-        // if ($this->credentials->user_id == $userId)
-
-
-
-
-
-
-
-        if (($this->is_identified == 1) && ($this->credentials->docType() == true)) {
-            return true;
-        }
-
-        return false;
-    }
 }

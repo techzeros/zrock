@@ -177,8 +177,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         // Custom Service Providers by NanoCoins
-        AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         App\Providers\NanoCoinsServiceProvider::class,
+        App\Providers\NanoCoinsRepoServiceProvider::class,
+        // Packages Service Provider
+        AlbertCht\InvisibleReCaptcha\InvisibleReCaptchaServiceProvider::class,
         \hisorange\BrowserDetect\ServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
 

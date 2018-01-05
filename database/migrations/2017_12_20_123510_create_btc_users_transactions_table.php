@@ -15,7 +15,8 @@ class CreateBtcUsersTransactionsTable extends Migration {
 		Schema::create('btc_users_transactions', function(Blueprint $table)
 		{
 			$table->integer('id')->primary();
-			$table->integer('uid')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
 			$table->string('type')->nullable();
 			$table->string('recipient')->nullable();
 			$table->string('sender')->nullable();

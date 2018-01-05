@@ -10,6 +10,8 @@
 
     @include('partials.user._alerts')
 
+    @include('partials.user._stats')
+
     @yield('content')
 
     @include('partials.user._end-container')

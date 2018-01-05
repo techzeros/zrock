@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * @package     NanoCoins
  * @copyright   2017 Nanacoins. All rights reserved.
@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
 
     // Authenticated User's App Routes
     Route::get('dashboard', 'User\DashboardController@index')->name('user.dashboard');
+    Route::get('wallet', 'User\WalletController@index')->name('user.wallet');
     
     // More below .....
 
@@ -61,7 +62,12 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
     Route::post('logout', 'User\Auth\LoginController@logout')->name('logout');
 });
 
+Route::get('app/wall', function(){
 
+    $address = App\Models\User\Btc_users_address::all();
+   return $address;
+
+});
 
 
 /**

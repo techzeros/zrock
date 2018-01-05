@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateLoginHistoriesTable extends Migration {
+class CreateCredentialsTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,15 @@ class CreateLoginHistoriesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('login_histories', function(Blueprint $table)
+		Schema::create('credentials', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->string('ip_address', 191);
-			$table->boolean('user_type')->nullable()->comment('0 for User; 1 for Admin');
-			$table->text('user_agent');
-			$table->text('geoip');
+			$table->string('id_one', 191);
+			$table->string('id_two', 191);
+			$table->boolean('id_one_valid')->default(0);
+			$table->boolean('id_two_valid')->default(0);
 			$table->timestamps();
 		});
 	}
@@ -33,7 +33,7 @@ class CreateLoginHistoriesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('login_histories');
+		Schema::drop('credentials');
 	}
 
 }

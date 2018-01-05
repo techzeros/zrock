@@ -11,21 +11,26 @@ class CreateBtcUsersAddressesTable extends Migration {
 	 * @return void
 	 */
 	public function up()
-	{
+	{	
+			if (!Schema::hasTable('btc_users_addresses')) {
+		//Check First before creating table
 		Schema::create('btc_users_addresses', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->integer('id')->primary();
-			$table->integer('uid')->nullable();
 			$table->string('label')->nullable();
 			$table->string('address')->nullable();
-			$table->integer('lid')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
+			$table->integer('license_id')->unsigned();
+			$table->foreign('license_id')->references('id')->on('users');
 			$table->string('available_balance')->nullable();
 			$table->string('pending_received_balance')->nullable();
 			$table->string('status')->nullable();
-			$table->integer('created')->nullable();
-			$table->integer('updated')->nullable();
+			$table->timestamps();
 			$table->integer('archived')->default(0);
 		});
+	}
 	}
 
 

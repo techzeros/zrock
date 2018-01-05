@@ -50,7 +50,7 @@ Route::group(['middleware' => 'guest', 'prefix' => 'auth'], function () {
  * The Below Routes are for authenticated users
  * You can add as many routes (related to authenticated users) as possible
  */
-Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
+Route::group(['middleware' => ['auth', 'useridentitycheck'], 'prefix' => 'app'], function () {
     // Default Redirect route
     Route::redirect('/', '/app/dashboard');
 

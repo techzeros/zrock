@@ -16,10 +16,11 @@ class UserIdentityCheck
      */
     public function handle($request, Closure $next)
     {
-        $user = auth()->user()->isIdentified();
-        if ($user) {
-            
-        }
+        dd(\Auth::user()->credentials);
+        // $user = \Auth::user();
+
+        // dd($user->credentials);
+
         return $next($request);
     }
 }

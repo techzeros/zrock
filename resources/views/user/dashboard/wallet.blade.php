@@ -17,7 +17,7 @@ $userid = Auth::user()->id;
 			
 				<div class="panel panel-default">
 					<div class="panel-body">
-					<h2><small>@lang('user/dashboard.addresses'); </small> <span class="pull-right"><small><a href="#modal-dialog" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
+					<h2><small>@lang('user/dashboard.addresses'); </small> <span class="pull-right"><small><a href="#modal_new_address" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
 							<table class="table">
 								<thead>
 									<tr>
@@ -29,7 +29,12 @@ $userid = Auth::user()->id;
 								</thead>
 								<tbody id="btc_addresses">
 										@if ($Btc_users_address->count() > 0) 
-									    @foreach ($Btc_users_address as $query)																		
+										@foreach ($Btc_users_address as $query)	
+										
+																	
+								
+								{{ $query->user_tranasactions }}
+							
 																		<tr id="btc_address_echo {{ $userid }} ">
 																			<td> 
 																			@php
@@ -69,7 +74,6 @@ $userid = Auth::user()->id;
 					<div class="panel-body">
 					<h2><small>@lang('user/dashboard.latest_transactions') </small></h2>
 							<div class="timeline">
-															
 								
 									@if ($Btc_users_transaction->count() > 0) 
 									@foreach ($Btc_users_transaction as $query)	
@@ -117,20 +121,27 @@ $userid = Auth::user()->id;
 		</div>
 		<!-- end #content -->
 
-		<!-- #modal-dialog -->
-		<div class="modal fade" id="modal-dialog">
+		<!-- #new address modal-dialog -->
+		<div class="modal fade" id="modal_new_address">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title">Modal Dialog</h4>
+						<h4 class="modal-title">@lang('user/dashboard.addresses')</h4>
 					</div>
 					<div class="modal-body">
-						Modal body content here...
+						<form id="form_new_address">
+							<p>@lang('user/dashboard.this_modal_create_address')</p>
+							<div class="form-group">
+								<label>@lang('user/dashboard.label')</label>
+								<input type="text" class="form-control" name="label" placeholder="@lang('user/dashboard.label_info')">
+							</div>
+							<p>@lang('user/dashboard.label_info_2')</p>
+							<button type="button" onclick="btc_submit_new_address();" class="btn btn-primary"><i class="fa fa-plus"></i>@lang('user/dashboard.btn_26')</button>
+						</form>
 					</div>
 					<div class="modal-footer">
 						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-						<a href="javascript:;" class="btn btn-sm btn-success">Action</a>
 					</div>
 				</div>
 			</div>

@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->hasMany(Credential::class);
     }
 
+    public function btc_users_addresses()
+    {
+        return $this->hasMany(Btc_users_address::class);
+    }
+
     public function isIdentified()
     {
         $userId = Auth::guard('web')->id;

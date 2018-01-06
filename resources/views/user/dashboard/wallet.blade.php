@@ -17,7 +17,7 @@ $userid = Auth::user()->id;
 			
 				<div class="panel panel-default">
 					<div class="panel-body">
-					<h2><small>@lang('user/dashboard.addresses'); </small> <span class="pull-right"><small><a href="javascript:void(0);" class="btn btn-default btn-sm" onclick="btc_new_address();"><i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
+					<h2><small>@lang('user/dashboard.addresses'); </small> <span class="pull-right"><small><a href="#modal-dialog" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
 							<table class="table">
 								<thead>
 									<tr>
@@ -116,4 +116,24 @@ $userid = Auth::user()->id;
 			<!-- end row -->
 		</div>
 		<!-- end #content -->
+
+		<!-- #modal-dialog -->
+		<div class="modal fade" id="modal-dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title">Modal Dialog</h4>
+					</div>
+					<div class="modal-body">
+						Modal body content here...
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+						<a href="javascript:;" class="btn btn-sm btn-success">Action</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 @endsection

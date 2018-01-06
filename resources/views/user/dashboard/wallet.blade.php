@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@section('title', 'Wallet')
+
 @section('content')
 
 @php 

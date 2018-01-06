@@ -1,5 +1,7 @@
 @extends('layouts.user')
 
+@section('title', 'Dashboard')
+
 @section('content')
         <!-- begin #content -->
 		<div id="content" class="content">

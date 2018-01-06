@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\User;
 
+use Auth;
 use Closure;
 use App\Models\User\User;
 
@@ -16,10 +17,9 @@ class UserIdentityCheck
      */
     public function handle($request, Closure $next)
     {
-        dd(\Auth::user()->credentials);
-        // $user = \Auth::user();
-
-        // dd($user->credentials);
+        if ( ! Auth::user()->credentials()->where('doc_approved', 1)->count() == 2) {
+            return redirect()->route('user.dashboard')->with('message', 'User Not Identified to Perform Such Transaction.');
+        }
 
         return $next($request);
     }

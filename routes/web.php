@@ -50,18 +50,23 @@ Route::group(['middleware' => 'guest', 'prefix' => 'auth'], function () {
  * The Below Routes are for authenticated users
  * You can add as many routes (related to authenticated users) as possible
  */
-Route::group(['middleware' => ['auth', 'useridentitycheck'], 'prefix' => 'app'], function () {
+Route::group(['middleware' => ['auth'], 'prefix' => 'app'], function () {
     // Default Redirect route
     Route::redirect('/', '/app/dashboard');
 
     // Authenticated User's App Routes
     Route::get('dashboard', 'User\DashboardController@index')->name('user.dashboard');
     
-    // More below .....
-
-
     // User Logout Route
     Route::post('logout', 'User\Auth\LoginController@logout')->name('logout');
+
+    Route::group(['middleware' => ['useridentitycheck']], function () {
+        // Restricted Routes... User must be Identified before access
+
+
+
+        
+    });
 });
 
 

@@ -31,16 +31,14 @@ $userid = Auth::user()->id;
 										@if ($Btc_users_address->count() > 0) 
 										@foreach ($Btc_users_address as $query)	
 										
-																	
-								
-								{{ $query->user_tranasactions }}
+														
 							
 																		<tr id="btc_address_echo {{ $userid }} ">
 																			<td> 
 																			@php
-																			$exp = 'usr_'.Auth::user()->id.'_';
+																			$exp = 'usr_'.Auth::user()->name.'_';
 																			$expl = explode($exp,$query->label);
-																			echo $expl[0]															
+																			echo $expl[1]															
 																			@endphp 
 																				
 																		   </td>																		</td>
@@ -50,7 +48,7 @@ $userid = Auth::user()->id;
 																				 <a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_6') " onclick="btc_send_from_address('echo $row['id') ');"><i class="fa fa-arrow-circle-o-up" style="margin:0px;"></i></a>
 																				<a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_7') " onclick="btc_receive_to_address('echo $row['id') ');"><i class="fa fa-arrow-circle-o-down" style="margin:0px;"></i></a> 
 																				<a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_9') " onclick="btc_archive_address('echo $row['id') ');"><i class="fa fa-archive" style="margin:0px;"></i></a>
-																				<a class="btn btn-circle btn-sm btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="echo $settings['url') account/transactions_by_address/echo $row['address') "><i class="fa fa-bars" style="margin:0px;"></i></a> 
+																				<a class="btn btn-circle btn-sm btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="echo $settings['url') account/transactions_by_address/{{ $query->address }} "><i class="fa fa-bars" style="margin:0px;"></i></a> 
 																			</td>
 																		</tr>
 																	
@@ -81,37 +79,48 @@ $userid = Auth::user()->id;
 																	 <!-- TIMELINE ITEM -->
 																	<div class="timeline-item">
 																		<div class="timeline-badge">
-																			if($row['type'] == "sent") { 
+																			@if ($query->type == "sent") 
 																			<div style="margin-left:20px;margin-top:35px;font-size:16px;" class="text text-danger"><i class="fa fa-arrow-circle-o-up fa-3x"></i></div>
-																			} elseif($row['type'] == "received") { 
+																			 @elseif($query->type == "received") 
 																			<div style="margin-left:20px;margin-top:35px;font-size:16px;" class="text text-success"><i class="fa fa-arrow-circle-o-down fa-3x"></i></div>
-																			} else { } 
+																			 
+																			  
 																		</div>
 																		<div class="timeline-body">
 																			<div class="timeline-body-arrow"> </div>
 																			<div class="timeline-body-head">
 																				<div class="timeline-body-head-caption">
-																					<a href="javascript:void(0);" class="timeline-body-title font-blue-madison">if($row['type'] == "sent") { @lang('user/dashboard.sent') } elseif($row['type'] == "received") { @lang('user/dashboard.received') } else { }  echo $row['amount')  BTC</a>
+																					<a href="javascript:void(0);" class="timeline-body-title font-blue-madison">
+																						@elseif ($query->type == "sent") 
+																						 @lang('user/dashboard.sent')  
+																						 @elseif ($query->type == "received") 
+																						@lang('user/dashboard.received')  
+																						
+																						
+																						
+																						{{ $query->amount }}  BTC</a>
 																				</div>
 																			<div class="timeline-body-content">
 																				<span class="font-grey-cascade"> 
-																					@lang('user/dashboard.transaction_id') : <b><a href="https://chain.so/tx/BTC/echo $row['txid') ">echo $row['txid') </a></b><br/>
-																					@lang('user/dashboard.sender') : <b>echo $row['sender') </b><br/>
-																					@lang('user/dashboard.recipient') : <b>echo $row['recipient') </b><br/>
-																					@lang('user/dashboard.confirmations') : <b>echo $row['confirmations') </b><br/>
-																					@lang('user/dashboard.time') : <b>echo date("d/m/Y H:i",$row['time']); </b>
+																					@lang('user/dashboard.transaction_id') : 
+																					<b><a href="https://chain.so/tx/BTC/{{ $query->txid }}  ">{{ $query->txid }} 
+																					 </a></b><br/>
+																					@lang('user/dashboard.sender') : <b>{{ $query->sender }}</b><br/>
+																					@lang('user/dashboard.recipient') : <b>{{ $query->recipient }} </b><br/>
+																					@lang('user/dashboard.confirmations') : <b>{{ $query->confirmations }} </b><br/>
+																					@lang('user/dashboard.time') : <b>{{ date("d/m/Y H:i",$query->time ) }} </b>
 																				</span>
 																			</div>
 																		</div>
 																	</div>
 																	<!-- END TIMELINE ITEM -->
 																	
-																}
-															} 
+																
+															@endif  
 															@endforeach
 															@else
 															@lang('user/dashboard.info_6') 
-															@endif
+															@endif 
 															
 															
 														</div>

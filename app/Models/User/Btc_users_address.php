@@ -9,7 +9,7 @@ class Btc_users_address extends Model
     //
     public function user_tranasactions()
     {
-        return $this->belongs(User::class); 
+        return $this->belongsTo(User::class); 
     }
 
     public function getUserAddress()

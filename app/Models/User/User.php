@@ -47,7 +47,7 @@ class User extends Authenticatable
         return $this->hasMany(Credential::class);
     }
 
-    public function btc_users_addresses()
+    public function btc_users_address()
     {
         return $this->hasMany(Btc_users_address::class);
     }

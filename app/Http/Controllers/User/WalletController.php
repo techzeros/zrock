@@ -32,11 +32,15 @@ class WalletController extends Controller
     public function index()
     {
         
-        $Btc_users_address = Btc_users_address::all();
+        //$Btc_users_address = Btc_users_address::all();
+        $Btc_users_address = Btc_users_address::where('user_id', \Auth::user()->id)
+        ->where('archived', 0)
+        ->orderBy('id', 'desc')
+        ->get();
 
         $Btc_users_transaction = Btc_users_transaction::where('user_id', \Auth::user()->id)
         ->orderBy('id', 'desc')
-        ->take(10)
+        ->take(5)
         ->get();
 
         return view('user.dashboard.wallet')->with('Btc_users_address', $Btc_users_address)->with('Btc_users_transaction', $Btc_users_transaction);

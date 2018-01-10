@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateBtcBlockioApiServerTable extends Migration {
+class CreateBtcBlockioApiServersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,15 +12,16 @@ class CreateBtcBlockioApiServerTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('btc_blockio_api_server', function(Blueprint $table)
+		Schema::create('btc_blockio_api_servers', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
+			$table->increments('id');
 			$table->string('account')->nullable();
 			$table->string('license')->nullable();
 			$table->string('secret_pin')->nullable();
 			$table->string('address')->nullable();
 			$table->integer('addresses')->nullable();
 			$table->integer('default_license')->nullable();
+			$table->timestamps();
 		});
 	}
 
@@ -32,7 +33,7 @@ class CreateBtcBlockioApiServerTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('btc_blockio_api_server');
+		Schema::drop('btc_blockio_api_servers');
 	}
 
 }

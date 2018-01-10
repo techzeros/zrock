@@ -14,8 +14,8 @@ class CreateBtcUsersTransactionsTable extends Migration {
 	{
 		Schema::create('btc_users_transactions', function(Blueprint $table)
 		{
-			$table->integer('id')->primary();
-			$table->integer('uid')->nullable();
+			$table->increments('id');
+			$table->unsignedInteger('user_id');
 			$table->string('type')->nullable();
 			$table->string('recipient')->nullable();
 			$table->string('sender')->nullable();
@@ -23,6 +23,10 @@ class CreateBtcUsersTransactionsTable extends Migration {
 			$table->integer('time')->nullable();
 			$table->integer('confirmations')->nullable();
 			$table->text('txid', 65535)->nullable();
+			$table->timestamps();
+
+			// Defining Integrity Constraints
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

@@ -62,6 +62,9 @@
 			
 			<!-- begin row -->
 			<div class="row">
+				@foreach($addresses as $address)
+					{{ ++$loop->index . " | " . $address->address  }} <br />
+				@endforeach
 			    <div class="col-md-8">
 			        <div class="widget-chart with-sidebar bg-grey-900">
 			            <div class="widget-chart-content">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,7 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        // // $this->middleware('auth');
-        // \Auth::logout();
+        // Add ....
     }
 
     /**
@@ -25,6 +25,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('user.dashboard.index');
+        $addresses = Auth::user()->btcAddresses;
+        return view('user.dashboard.index', compact('addresses'));
     }
 }

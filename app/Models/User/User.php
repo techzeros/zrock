@@ -3,7 +3,10 @@
 namespace App\Models\User;
 
 use Auth;
+use App\Models\LoginHistory;
 use App\Models\User\Credential;
+use App\Models\User\BtcUserAddress;
+use App\Models\User\BtcUserTransaction;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -29,45 +32,29 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    // Set the verified status to true and make the email token null
-    public function activateUser()
-    {
-        $this->activated = 1;
-        $this->email_token = null;
-        $this->save();
-    }
-
-    public function userAgent()
-    {
-        return \Browser::detect();
-    }
-
-    public function crendentials()
+    public function credentials()
     {
         return $this->hasMany(Credential::class);
     }
 
-    public function btc_users_address()
+    public function btcAddresses()
     {
-        return $this->hasMany(Btc_users_address::class);
+        return $this->hasMany(BtcUserAddress::class);
     }
 
-    public function isIdentified()
+    public function btcTransactions()
     {
-        $userId = Auth::guard('web')->id;
-
-        // if ($this->credentials->user_id == $userId)
-
-
-
-
-
-
-
-        if (($this->is_identified == 1) && ($this->credentials->docType() == true)) {
-            return true;
-        }
-
-        return false;
+        return $this->hasMany(BtcUserTransaction::class);
     }
+
+    public function loginHistories()
+    {
+        return $this->hasMany(LoginHistory::class)->user();
+    }
+
+    public function scopeUser($query)
+    {
+        return $query->where('user_type', 0);
+    }
+
 }

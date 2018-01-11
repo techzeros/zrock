@@ -14,6 +14,7 @@ class CreateBtcUsersTable extends Migration {
 	{
 		Schema::create('btc_users', function(Blueprint $table)
 		{
+			$table->increments('id');
 			$table->integer('id')->primary();
 			$table->string('username')->nullable();
 			$table->string('password')->nullable();

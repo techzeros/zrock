@@ -8,8 +8,8 @@
 $userid = Auth::user()->id;
 @endphp
 
-
-{{ $userid }}
+{{ btc_buy_price() }}
+{{ idinfo('name') }}
 			 <!-- begin #content -->
  <div id="content" class="content">
 			<!-- begin row -->
@@ -17,7 +17,9 @@ $userid = Auth::user()->id;
 			
 				<div class="panel panel-default">
 					<div class="panel-body">
-					<h2><small>@lang('user/dashboard.addresses'); </small> <span class="pull-right"><small><a href="#modal_new_address" class="btn btn-sm btn-success" data-toggle="modal"><i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
+					<h2><small>@lang('user/dashboard.addresses'); </small> 
+						<span class="pull-right"><small><a href="#modal_new_address" class="btn btn-sm btn-success" data-toggle="modal">
+							<i class="fa fa-plus"></i> @lang('user/dashboard.btn_5') </a></small></span></h2>
 							<table class="table">
 								<thead>
 									<tr>
@@ -38,17 +40,17 @@ $userid = Auth::user()->id;
 																			@php
 																			$exp = 'usr_'.Auth::user()->name.'_';
 																			$expl = explode($exp,$query->label);
-																			echo $expl[1]															
+																			echo $expl[0]															
 																			@endphp 
 																				
 																		   </td>																		</td>
 																			<td> {{ $query->address }}   </td>
 																			<td> {{ $query->available_balance }}  BTC </td>
 																			<td>
-																				 <a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_6') " onclick="btc_send_from_address('echo $row['id') ');"><i class="fa fa-arrow-circle-o-up" style="margin:0px;"></i></a>
-																				<a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_7') " onclick="btc_receive_to_address('echo $row['id') ');"><i class="fa fa-arrow-circle-o-down" style="margin:0px;"></i></a> 
-																				<a class="btn btn-circle btn-sm btn-icon btn-default" href="javascript:;" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_9') " onclick="btc_archive_address('echo $row['id') ');"><i class="fa fa-archive" style="margin:0px;"></i></a>
-																				<a class="btn btn-circle btn-sm btn-icon btn-default" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="echo $settings['url') account/transactions_by_address/{{ $query->address }} "><i class="fa fa-bars" style="margin:0px;"></i></a> 
+																				<a href="#modal_send_from_address" class="btn btn-circle btn-sm btn-primary" data-toggle="modal" title="@lang('user/dashboard.btn_6')"><i class="fa fa-arrow-circle-o-up" style="margin:0px;"></i></a>
+																				<a class="btn btn-circle btn-sm  btn-primary" href="#modal_receive_to_address" data-toggle="modal" title="@lang('user/dashboard.btn_7')" ><i class="fa fa-arrow-circle-o-down" style="margin:0px;"></i></a> 
+																				<a class="btn btn-circle btn-sm  btn-primary" href="#btc_archive_address" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_9') "><i class="fa fa-archive" style="margin:0px;"></i></a>
+																				<a class="btn btn-circle btn-sm  btn-primary" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="/account/transactions_by_address/{{ $query->address }} "><i class="fa fa-bars" style="margin:0px;"></i></a> 
 																			</td>
 																		</tr>
 																	
@@ -72,7 +74,7 @@ $userid = Auth::user()->id;
 					<div class="panel-body">
 					<h2><small>@lang('user/dashboard.latest_transactions') </small></h2>
 							<div class="timeline">
-								
+									
 									@if ($Btc_users_transaction->count() > 0) 
 									@foreach ($Btc_users_transaction as $query)	
 																	
@@ -136,9 +138,14 @@ $userid = Auth::user()->id;
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title">@lang('user/dashboard.addresses')</h4>
+						<h4 class="modal-title" id="myModalLabel"><i class="fa fa-plus"></i> @lang('user/dashboard.new_address')</h4>
 					</div>
+
 					<div class="modal-body">
+
+							<div id="html_new_address_results"></div>
+							<div id="html_new_address_form"></div>
+
 						<form id="form_new_address">
 							<p>@lang('user/dashboard.this_modal_create_address')</p>
 							<div class="form-group">
@@ -155,5 +162,94 @@ $userid = Auth::user()->id;
 				</div>
 			</div>
 		</div>
-		
+
+				@php
+				$total = '0.0000';														
+				@endphp 
+				@foreach ($Btc_users_address as $query)	
+		<!-- #send_from_address modal-dialog -->
+		<div class="modal fade" id="modal_send_from_address">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.send_bitcoins')</h4>
+					</div>
+					<div class="modal-body">
+						<form id="form_new_address">
+								<div class="form-group">
+							<label>@lang('user/dashboard.from_wallet_address')</label>
+							
+							<input type="text" class="form-control" disabled value="{{ $expl[0]	}} - {{ $query->address }}">
+								<label>@lang('user/dashboard.label')</label>
+							</div>
+
+
+					<div class="form-group">
+							<label>@lang('user/dashboard.to_wallet_address')</label>
+							<input type="text" class="form-control" name="to_address">
+						</div>
+
+
+					<div class="form-group">
+							<label>@lang('user/dashboard.amount')</label>
+							<input type="text" class="form-control" name="amount" placeholder="0.000000">
+						</div>
+
+						
+					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_6')</button>
+					<span class="pull-right">
+							@lang('user/dashboard.error_30'): <span id="btc_total">{{ $total }}</span> BTC
+					</span>	
+				</form>
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		@endforeach
+
+
+		@foreach ($Btc_users_address as $query)	
+		<!-- #receive_to_address modal-dialog -->
+		<div class="modal fade" id="modal_receive_to_address">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.receive_bitcoins')</h4>
+					</div>
+					<div class="modal-body">
+						<form id="btc_generate_qr_code">
+								<div class="form-group">
+							<label>@lang('user/dashboard.wallet_address')</label>
+							
+							<input type="text" class="form-control" disabled value="{{ $query->address }}">
+							</div>
+
+
+					<div class="form-group">
+							<label>@lang('user/dashboard.amount')</label>
+							<input type="text" class="form-control" name="amount" placeholder="0.000000">
+						</div>
+
+						
+					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_27')</button>
+					
+				</form>
+
+			<div class="col-md-4">
+					<center><div id="btc_qr_code"></div></center>
+				</div>
+
+					</div>
+					<div class="modal-footer">
+						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		@endforeach
 @endsection

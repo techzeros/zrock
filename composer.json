@@ -6,7 +6,9 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "akaunting/setting": "^1.0",
         "albertcht/invisible-recaptcha": "^1.8",
+        "blockavel/lara-block-io": "^0.0.4",
         "fideloper/proxy": "~3.3",
         "geoip2/geoip2": "^2.7",
         "hisorange/browser-detect": "^3.0",
@@ -28,7 +30,8 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files" : ["app/Helpers/NanoHelper.php"]
     },
     "autoload-dev": {
         "psr-4": {

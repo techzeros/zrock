@@ -47,4 +47,10 @@ class WalletController extends Controller
        // return view('user.dashboard.wallet', compact('Btc_users_address','Btc_users_transaction'));
     }
 
+
+    public function createwallet()
+    {
+        //
+    }
+
 }

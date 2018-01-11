@@ -14,6 +14,7 @@ class CreateBtcPricesTable extends Migration {
 	{
 		Schema::create('btc_prices', function(Blueprint $table)
 		{
+			$table->increments('id');
 			$table->integer('id')->primary();
 			$table->string('source')->nullable();
 			$table->integer('price')->nullable();

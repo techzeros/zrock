@@ -23,6 +23,11 @@
 	<script src="{{ asset('portal/js/apps.min.js') }}"></script>
 	<!-- ================== END PAGE LEVEL JS ================== -->
 
+
+	<!-- ================== BEGIN NANOCOIN JS FUNCTION ================== -->
+	<script src="{{ asset('js/nanofunctions.js') }}"></script>
+	<!-- ================== END NANOCOIN JS FUNCTION ================== -->
+
     {{--  User Defined JS Scripts  --}}
     @yield('custom_js')
 	

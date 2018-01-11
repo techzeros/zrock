@@ -16,7 +16,7 @@ class CreateBtcUsersAddressesTable extends Migration {
 		//Check First before creating table
 		Schema::create('btc_users_addresses', function(Blueprint $table)
 		{
-			$table->engine = 'InnoDB';
+			$table->increments('id');
 			$table->integer('id')->primary();
 			$table->string('label')->nullable();
 			$table->string('address')->nullable();

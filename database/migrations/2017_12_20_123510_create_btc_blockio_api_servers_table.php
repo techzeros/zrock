@@ -14,6 +14,7 @@ class CreateBtcBlockioApiServersTable extends Migration {
 	{
 		Schema::create('btc_blockio_api_servers', function(Blueprint $table)
 		{
+			$table->increments('id');
 			$table->integer('id')->primary();
 			$table->string('account')->nullable();
 			$table->string('license')->nullable();

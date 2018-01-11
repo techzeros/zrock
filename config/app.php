@@ -181,6 +181,8 @@ return [
         App\Providers\NanoCoinsServiceProvider::class,
         \hisorange\BrowserDetect\ServiceProvider::class,
         \Torann\GeoIP\GeoIPServiceProvider::class,
+        Blockavel\LaraBlockIo\LaraBlockIoServiceProvider::class,
+        Akaunting\Setting\Provider::class,
 
     ],
 
@@ -232,6 +234,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Browser' => \hisorange\BrowserDetect\Facade::class,
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+        'NanoCoinBlockIo' => 'Blockavel\LaraBlockIo\LaraBlockIoFacade',
+        'Setting' => Akaunting\Setting\Facade::class,
 
     ],
 

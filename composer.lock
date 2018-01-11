@@ -4,8 +4,66 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f4492ef5b8ab74c0f75ac5846670ba3",
+    "content-hash": "9538fa8710a6abffe5f7f167d8ca894e",
     "packages": [
+        {
+            "name": "akaunting/setting",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/akaunting/setting.git",
+                "reference": "4462ce24d567e3bc7c1a880fdd3bbe5841e4be7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/akaunting/setting/zipball/4462ce24d567e3bc7c1a880fdd3bbe5841e4be7d",
+                "reference": "4462ce24d567e3bc7c1a880fdd3bbe5841e4be7d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "5.2.* || 5.3.* || 5.4.* || 5.5.*",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Akaunting\\Setting\\Provider"
+                    ],
+                    "aliases": {
+                        "Setting": "Akaunting\\Setting\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Akaunting\\Setting\\": "./src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Duliçi",
+                    "email": "info@akaunting.com",
+                    "homepage": "https://akaunting.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Persistent settings package for Laravel.",
+            "keywords": [
+                "Settings",
+                "config",
+                "laravel",
+                "persistent"
+            ],
+            "time": "2017-12-04T18:39:43+00:00"
+        },
         {
             "name": "albertcht/invisible-recaptcha",
             "version": "v1.8",
@@ -64,6 +122,95 @@
                 "recaptcha"
             ],
             "time": "2017-09-30T07:27:34+00:00"
+        },
+        {
+            "name": "block_io-php/block_io-php",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BlockIo/block_io-php.git",
+                "reference": "854477bb98fea7af1618373fd90009119791b71b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BlockIo/block_io-php/zipball/854477bb98fea7af1618373fd90009119791b71b",
+                "reference": "854477bb98fea7af1618373fd90009119791b71b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-gmp": "*",
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Block.io is the easiest way to create wallets, send, and accept payments through Bitcoin, Litecoin, and Dogecoin. This is its PHP library.",
+            "homepage": "https://block.io",
+            "keywords": [
+                "bitcoin",
+                "block.io",
+                "block_io",
+                "dogecoin",
+                "litecoin"
+            ],
+            "time": "2017-09-10T03:09:30+00:00"
+        },
+        {
+            "name": "blockavel/lara-block-io",
+            "version": "0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/blockavel/lara-block-io.git",
+                "reference": "74ba785fc503dd53366ad31347d09e2eb6c4bfc8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/blockavel/lara-block-io/zipball/74ba785fc503dd53366ad31347d09e2eb6c4bfc8",
+                "reference": "74ba785fc503dd53366ad31347d09e2eb6c4bfc8",
+                "shasum": ""
+            },
+            "require": {
+                "block_io-php/block_io-php": "^1.1",
+                "ext-bcmath": "*",
+                "ext-curl": "*",
+                "ext-gmp": "*",
+                "ext-mcrypt": "*",
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "~5.7"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Blockavel\\LaraBlockIo\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alejandro Carstens",
+                    "email": "acarste@okstate.edu"
+                },
+                {
+                    "name": "Kaushik Subramaniam Gnanaskandan",
+                    "email": "kaushik.subman@gmail.com"
+                }
+            ],
+            "description": "Laravel package for the Block.io API",
+            "time": "2017-03-18T03:42:13+00:00"
         },
         {
             "name": "composer/ca-bundle",

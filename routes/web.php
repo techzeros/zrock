@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
     // Authenticated User's App Routes
     Route::get('dashboard', 'User\DashboardController@index')->name('user.dashboard');
     Route::get('wallet', 'User\WalletController@index')->name('user.wallet');
+    Route::post('wallet', 'User\WalletController@createwallet')->name('user.wallet');
+    Route::post('ajaxtest', 'AjaxController@btc_submit_new_address');
     
     // More below .....
 
@@ -63,9 +65,18 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
 });
 
 Route::get('app/wall', function(){
-
-    $address = App\Models\User\Btc_users_address::all();
-   return $address;
+    //myplayground!!!
+    $whichapi = config('nanoblockio.whichapi');
+    //dd($whichapi);
+      $address = nanoblockioConfig();
+      $account = $address->account;
+    //  $address = config("nanoblockio.$whichapi.account");
+   // $address = NanoCoinBlockIo::getCurrentPrice('USD');
+   //$sent = NanoCoinBlockIo::getTransactionsByAddresses('sent', '3NxtazVdHUq4L83UacH9aRECGMj8T41KQX');
+   //return __('user/dashboard.btn_5'); //helper for lang
+    dd($sent);
+   //dd($address);
+  // return NanoCoinBlockIo::getBlockIo();
 
 });
 

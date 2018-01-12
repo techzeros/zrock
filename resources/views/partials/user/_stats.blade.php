@@ -1,3 +1,11 @@
+<h2><small>
+        @lang('user/dashboard.buy_bitcoins')
+    </small> 
+    <span class="pull-right" style="font-size:20px;">
+        <span class="label label-primary"><i class="fa fa-bitcoin"></i> 
+        @lang('user/dashboard.buy_bitcoin') :  
+        {{ btc_buy_price() }} / @lang('user/dashboard.sell_bitcoin') : {{ btc_sell_price() }}
+    </span></span></h2>
  <!-- begin #content -->
  <div id="content" class="content">
     <!-- begin row -->
@@ -60,3 +68,5 @@
     </div>
 </div>
     <!-- end row -->
+
+ 

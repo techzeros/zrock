@@ -24,8 +24,8 @@
 					<li><a href="#"><i class="material-icons">assignment_returned</i> <span>@lang('user/dashboard.menu_deposit')</span></a></li>
 					<li><a href="#"><i class="material-icons">send</i> <span>@lang('user/dashboard.menu_withdraw')</span></a></li>
 					<li><a href="#"><i class="material-icons">history</i> <span>@lang('user/dashboard.menu_history')</span></a></li>
-					<li><a href="#"><i class="material-icons">swap_horiz</i> <span>@lang('user/dashboard.transfer_bitcoins')</span></a></li>
-					<li><a href="#"><i class="material-icons">undo</i> <span>@lang('user/dashboard.request_bitcoins')</span></a></li>
+					<li><a href="{{ url('app/transfer-bitcoins') }}"><i class="material-icons">swap_horiz</i> <span>@lang('user/dashboard.transfer_bitcoins')</span></a></li>
+					<li><a href="{{ url('app/request-bitcoins') }}"><i class="material-icons">undo</i> <span>@lang('user/dashboard.request_bitcoins')</span></a></li>
 					<li><a href="#"><i class="material-icons">trending_up</i> <span>@lang('user/dashboard.menu_promotion')</span></a></li>
 					<li class="divider"></li>
 					<li><a href="#"><i class="material-icons">settings</i> <span>@lang('user/dashboard.menu_settings')</span></a></li>

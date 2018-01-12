@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
     // Authenticated User's App Routes
     Route::get('dashboard', 'User\DashboardController@index')->name('user.dashboard');
     Route::get('wallet', 'User\WalletController@index')->name('user.wallet');
+    Route::get('transfer-bitcoins', 'User\TransferBitcoinController@index');
+    Route::get('request-bitcoins', 'User\RequestBitcoinController@index');
     Route::post('wallet', 'User\WalletController@createwallet')->name('user.wallet');
 
 

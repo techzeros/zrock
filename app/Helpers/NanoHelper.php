@@ -15,7 +15,7 @@
 */
 function formatNumber($number)
 {
-   return number_format("$number", 2);
+   return number_format($number, 2);
 }
 
 function isValidURL($url) {
@@ -188,7 +188,7 @@ function get_user_balance_usd($uid) {
 		$balance_btc = get_user_balance_btc($uid);
 		$btc_price = get_current_bitcoin_price();
 		$balance = $balance_btc * $btc_price;
-		$balance = number_format($balance,2);
+		//$balance = number_format($balance,2);
 	} else {
 		$balance_btc = get_user_balance_btc($uid);
 		$btc_price = get_current_bitcoin_price();
@@ -196,7 +196,8 @@ function get_user_balance_usd($uid) {
 		//$balance = number_format($balance,2); //remove comma first b4 passing to converter
 		$balance = currencyConvertor($balance,"USD", $default_currency);
 	}
-	return formatNumber($balance) .' '. $default_currency; 	
+    $balance = formatNumber($balance);
+    return $balance .' '. $default_currency; 	
 }
 
 function get_current_bitcoin_price() {
@@ -241,7 +242,7 @@ function btc_buy_price() {
 		}
 	}
 	$btc_price = formatNumber($btc_price);
-	return $btc_price;
+	return $btc_price.' '.$default_currency;
 } 
 
 function btc_sell_price() {

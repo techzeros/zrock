@@ -8,8 +8,6 @@
 $userid = Auth::user()->id;
 @endphp
 
-{{ btc_buy_price() }}
-{{ idinfo('name') }}
 			 <!-- begin #content -->
  <div id="content" class="content">
 			<!-- begin row -->
@@ -30,31 +28,37 @@ $userid = Auth::user()->id;
 									</tr>
 								</thead>
 								<tbody id="btc_addresses">
-										@if ($Btc_users_address->count() > 0) 
-										@foreach ($Btc_users_address as $query)	
-										
+										@if ($userAddresses->count() > 0) 
+										@foreach ($userAddresses as $Address)	
+										@php
+										$getAddressByAddressid = $Address->where('id', $Address->id)->get();
+									//	dd($getAddressByAddressid->address);
+										foreach ($getAddressByAddressid as $post) {
+										//	dd($post->address);
+										}			
+										$exp = 'usr_'.Auth::user()->name.'_';
+										$expl = explode($exp,$Address->label);
+										$total = '0.0000';	
+									 											
+										@endphp 
 														
 							
-																		<tr id="btc_address_echo {{ $userid }} ">
+																		<tr id="btc_address_{{ $userid }} ">
 																			<td> 
-																			@php
-																			$exp = 'usr_'.Auth::user()->name.'_';
-																			$expl = explode($exp,$query->label);
-																			echo $expl[0]															
-																			@endphp 
-																				
+																			
+																			{{ $expl[0] }}	
 																		   </td>																		</td>
-																			<td> {{ $query->address }}   </td>
-																			<td> {{ $query->available_balance }}  BTC </td>
+																			<td> {{ $Address->address }}   </td>
+																			<td> {{ $Address->available_balance }}  BTC </td>
 																			<td>
-																				<a href="#modal_send_from_address" class="btn btn-circle btn-sm btn-primary" data-toggle="modal" title="@lang('user/dashboard.btn_6')"><i class="fa fa-arrow-circle-o-up" style="margin:0px;"></i></a>
-																				<a class="btn btn-circle btn-sm  btn-primary" href="#modal_receive_to_address" data-toggle="modal" title="@lang('user/dashboard.btn_7')" ><i class="fa fa-arrow-circle-o-down" style="margin:0px;"></i></a> 
-																				<a class="btn btn-circle btn-sm  btn-primary" href="#btc_archive_address" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_9') "><i class="fa fa-archive" style="margin:0px;"></i></a>
-																				<a class="btn btn-circle btn-sm  btn-primary" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="/account/transactions_by_address/{{ $query->address }} "><i class="fa fa-bars" style="margin:0px;"></i></a> 
+																				<a href="#modal_send_from_address" data-id="{{ $Address->id }}" class="walletDialog btn btn-circle btn-sm btn-primary" data-toggle="modal" title="@lang('user/dashboard.btn_6')"><i class="fa fa-arrow-circle-o-up" style="margin:0px;"></i></a>
+																				<a class="walletDialog btn btn-circle btn-sm  btn-primary" data-id="{{ $Address->id }}" href="#modal_receive_to_address" data-toggle="modal" title="@lang('user/dashboard.btn_7')" ><i class="fa fa-arrow-circle-o-down" style="margin:0px;"></i></a> 
+																				<a class="walletDialog btn btn-circle btn-sm  btn-primary" data-id="{{ $Address->id }}" href="#btc_archive_address" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_9') "><i class="fa fa-archive" style="margin:0px;"></i></a>
+																				<a class="walletDialog btn btn-circle btn-sm  btn-primary" data-id="{{ $Address->id }}" data-toggle="tooltip" data-placement="top" title="@lang('user/dashboard.btn_10') " href="/app/transactions_by_address/{{ $Address->address }} "><i class="fa fa-bars" style="margin:0px;"></i></a> 
 																			</td>
 																		</tr>
 																	
-																	
+																								
 								@endforeach
 								@else
 								<tr><td colspan="4">
@@ -75,8 +79,8 @@ $userid = Auth::user()->id;
 					<h2><small>@lang('user/dashboard.latest_transactions') </small></h2>
 							<div class="timeline">
 									
-									@if ($Btc_users_transaction->count() > 0) 
-									@foreach ($Btc_users_transaction as $query)	
+									@if ($userTransactions->count() > 0) 
+									@foreach ($userTransactions as $query)	
 																	
 																	 <!-- TIMELINE ITEM -->
 																	<div class="timeline-item">
@@ -163,93 +167,114 @@ $userid = Auth::user()->id;
 			</div>
 		</div>
 
-				@php
-				$total = '0.0000';														
-				@endphp 
-				@foreach ($Btc_users_address as $query)	
-		<!-- #send_from_address modal-dialog -->
-		<div class="modal fade" id="modal_send_from_address">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.send_bitcoins')</h4>
-					</div>
-					<div class="modal-body">
-						<form id="form_new_address">
-								<div class="form-group">
-							<label>@lang('user/dashboard.from_wallet_address')</label>
-							
-							<input type="text" class="form-control" disabled value="{{ $expl[0]	}} - {{ $query->address }}">
-								<label>@lang('user/dashboard.label')</label>
-							</div>
+@endsection
 
 
-					<div class="form-group">
-							<label>@lang('user/dashboard.to_wallet_address')</label>
-							<input type="text" class="form-control" name="to_address">
-						</div>
+@foreach ($userAddresses as $Address)	
+@php
+//current issue facing modal not dynamic, passing address id is war for now
+$getAddressByAddressid = $Address->where('id', $Address->id)->get();
+$total = $Address->available_balance;
+$total = $total - 0.0008;
+$total = $total - Setting::get('withdrawal_comission');
+if($total < 0) { $total = '0.0000'; }	
+										 
+@endphp
 
 
-					<div class="form-group">
-							<label>@lang('user/dashboard.amount')</label>
-							<input type="text" class="form-control" name="amount" placeholder="0.000000">
-						</div>
+@foreach ($getAddressByAddressid as $query)	
+																		<!-- #send_from_address modal-dialog -->
+																		<div class="modal fade" id="modal_send_from_address">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+																						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.send_bitcoins')</h4>
+																					</div>
+																					<div class="modal-body">
+																						<form id="form_new_address">
+																								<div class="form-group">
+																							<label>@lang('user/dashboard.from_wallet_address')</label>
+																							
+																							<input type="text" class="form-control" disabled value="{{ $expl[0]	}} - {{ $query->address }}">
+																								<label>@lang('user/dashboard.label')</label>
+																							</div>
+																
+																
+																					<div class="form-group">
+																							<label>@lang('user/dashboard.to_wallet_address')</label>
+																							<input type="text" class="form-control" name="to_address">
+																							<input type="text" hidden name="addrId" id="addrId" value=""/>
+																						</div>
+																
+																
+																					<div class="form-group">
+																							<label>@lang('user/dashboard.amount')</label>
+																							<input type="text" class="form-control" name="amount" placeholder="0.000000">
+																						</div>
+																
+																						
+																					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_6')</button>
+																					<span class="pull-right">
+																							@lang('user/dashboard.error_30'): <span id="btc_total">{{ $total }}</span> BTC
+																					</span>	
+																				</form>
+																					</div>
+																					<div class="modal-footer">
+																						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		@endforeach
+																
+																		@foreach ($getAddressByAddressid as $query)	
+																		<!-- #receive_to_address modal-dialog -->
+																		<div class="modal fade" id="modal_receive_to_address">
+																			<div class="modal-dialog">
+																				<div class="modal-content">
+																					<div class="modal-header">
+																						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+																						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.receive_bitcoins')</h4>
+																					</div>
+																					<div class="modal-body">
+																						<form id="btc_generate_qr_code">
+																								<div class="form-group">
+																							<label>@lang('user/dashboard.wallet_address')</label>
+																							
+																							<input type="text" class="form-control" disabled value="{{ $query->address }}">
+																							</div>
+																
+																
+																					<div class="form-group">
+																							<label>@lang('user/dashboard.amount')</label>
+																							<input type="text" class="form-control" name="amount" placeholder="0.000000">
+																						</div>
+																
+																						
+																					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_27')</button>
+																					
+																				</form>
+																
+																			<div class="col-md-4">
+																					<center><div id="btc_qr_code"></div></center>
+																				</div>
+																
+																					</div>
+																					<div class="modal-footer">
+																						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		@endforeach			
+																		@endforeach			
 
-						
-					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_6')</button>
-					<span class="pull-right">
-							@lang('user/dashboard.error_30'): <span id="btc_total">{{ $total }}</span> BTC
-					</span>	
-				</form>
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		@endforeach
+@section('custom_js')
 
+$(document).on("click", ".walletDialog", function () {
+	var putaddrId = $(this).data('id');
+	$(".modal-body #addrId").val( putaddrId );
+});
 
-		@foreach ($Btc_users_address as $query)	
-		<!-- #receive_to_address modal-dialog -->
-		<div class="modal fade" id="modal_receive_to_address">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-						<h4 class="modal-title"><i class="fa fa-arrow-circle-o-up"></i> @lang('user/dashboard.receive_bitcoins')</h4>
-					</div>
-					<div class="modal-body">
-						<form id="btc_generate_qr_code">
-								<div class="form-group">
-							<label>@lang('user/dashboard.wallet_address')</label>
-							
-							<input type="text" class="form-control" disabled value="{{ $query->address }}">
-							</div>
-
-
-					<div class="form-group">
-							<label>@lang('user/dashboard.amount')</label>
-							<input type="text" class="form-control" name="amount" placeholder="0.000000">
-						</div>
-
-						
-					<button type="button" class="btn btn-primary">@lang('user/dashboard.btn_27')</button>
-					
-				</form>
-
-			<div class="col-md-4">
-					<center><div id="btc_qr_code"></div></center>
-				</div>
-
-					</div>
-					<div class="modal-footer">
-						<a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		@endforeach
 @endsection

@@ -14,4 +14,12 @@ class BtcUserAddress extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getUserAddress()
+    {
+        return BtcUserAddress::where('user_id', \Auth::user()->id)
+        ->where('archived', 0)
+        ->orderBy('id', 'desc')
+        ->get();
+    }
 }

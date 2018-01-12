@@ -29,9 +29,12 @@
 	<!-- ================== END NANOCOIN JS FUNCTION ================== -->
 
     {{--  User Defined JS Scripts  --}}
-    @yield('custom_js')
+   
 	
 	<script>
+			@yield('custom_js')
+
+
 		$(document).ready(function() {
 			NanoApp.init();
 			DashboardV2.init();

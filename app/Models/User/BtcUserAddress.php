@@ -4,6 +4,7 @@ namespace App\Models\User;
 
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class BtcUserAddress extends Model
 {
@@ -15,9 +16,9 @@ class BtcUserAddress extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getUserAddress()
+    public static function getUserAddress()
     {
-        return BtcUserAddress::where('user_id', \Auth::user()->id)
+        return BtcUserAddress::where('user_id', Auth::user()->id)
         ->where('archived', 0)
         ->orderBy('id', 'desc')
         ->get();

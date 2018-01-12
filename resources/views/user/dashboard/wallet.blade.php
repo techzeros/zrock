@@ -43,7 +43,7 @@ $userid = Auth::user()->id;
 										@endphp 
 														
 							
-																		<tr id="btc_address_{{ $userid }} ">
+																		<tr id="btc_address_{{ $Address->id }} ">
 																			<td> 
 																			
 																			{{ $expl[0] }}	

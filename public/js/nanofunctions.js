@@ -1,25 +1,7 @@
-function myfirstest() {
-    var id = 12; // A random variable for this example
-
-$.ajax({
-    method: 'POST', // Type of response and matches what we said in the route
-    url: '/app/ajaxtest', // This is the url we gave in the route
-    data: {'id' : id}, // a JSON object to send back
-    success: function(response){ // What to do if we succeed
-        console.log(response); 
-    },
-    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-        console.log(JSON.stringify(jqXHR));
-        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-    }
-});
-}
-
-
     
 function btc_submit_new_address() {
         
-    var data_url =  "/app/ajaxtest";
+    var data_url =  "/app/requests/new_address";
     $.ajax({
         type: "POST",
         url: data_url,
@@ -27,7 +9,7 @@ function btc_submit_new_address() {
         dataType: "json",
         success: function (data) {
             if(data.status == "success") {
-             //   btc_refresh_addresses();
+                btc_refresh_addresses();
                 $("#html_new_address_results").html(data.msg);
                 $("#modal_new_address").delay(5000).modal("hide");
             } else {
@@ -35,4 +17,16 @@ function btc_submit_new_address() {
             }
         }
     });
+}
+
+function btc_refresh_addresses() {
+	var data_url = "/app/requests/refresh_addresses";
+	$.ajax({
+		type: "POST",
+		url: data_url,
+		dataType: "html",
+		success: function (data) {
+			$("#btc_addresses").html(data);
+		}
+	});
 }

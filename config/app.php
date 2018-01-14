@@ -236,6 +236,7 @@ return [
         'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
         'NanoCoinBlockIo' => 'Blockavel\LaraBlockIo\LaraBlockIoFacade',
         'Setting' => Akaunting\Setting\Facade::class,
+        'NanoHelper' => Facades\App\Helpers\NanoHelper::class,
 
     ],
 

@@ -17,18 +17,18 @@ class CreateBtcUsersAddressesTable extends Migration {
 		Schema::create('btc_users_addresses', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('id')->primary();
 			$table->string('label')->nullable();
 			$table->string('address')->nullable();
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-			$table->integer('license_id')->unsigned();
-			$table->foreign('license_id')->references('id')->on('users');
+            $table->unsignedInteger('user_id');
+			$table->unsignedInteger('license_id');
 			$table->string('available_balance')->nullable();
 			$table->string('pending_received_balance')->nullable();
 			$table->string('status')->nullable();
+			$table->unsignedInteger('archived')->default(0);
 			$table->timestamps();
-			$table->integer('archived')->default(0);
+			
+            $table->foreign('user_id')->references('id')->on('users');
+			$table->foreign('license_id')->references('id')->on('users');
 		});
 	}
 	}

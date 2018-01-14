@@ -1,6 +1,4 @@
-<h2><small>
-        @lang('user/dashboard.buy_bitcoins')
-    </small> 
+<h2>
     <span class="pull-right" style="font-size:20px;">
         <span class="label label-primary"><i class="fa fa-bitcoin"></i> 
         @lang('user/dashboard.buy_bitcoin') :  

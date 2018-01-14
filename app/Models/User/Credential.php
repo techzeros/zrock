@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Credential extends Model
 {
+    protected $table = 'credentials';
+    
     protected $fillable = ['user_id', 'doc_type', 'doc', 'doc_approved'];
 
     public function user()

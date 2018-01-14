@@ -8,12 +8,14 @@
             
     @include('partials.user._nav')
 
-    @include('partials.user._alerts')
-
     @include('partials.user._stats')
 
+            <!-- begin #content -->
+	<div id="content" class="content">
+    @include('partials.user._alerts')
     @yield('content')
-
+	</div>
+		<!-- end #content -->
     @include('partials.user._end-container')
 
 @include('partials.user._footer')

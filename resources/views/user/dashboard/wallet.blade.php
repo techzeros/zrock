@@ -8,8 +8,6 @@
 $userid = Auth::user()->id;
 @endphp
 
-			 <!-- begin #content -->
- <div id="content" class="content">
 			<!-- begin row -->
 
 			
@@ -31,12 +29,8 @@ $userid = Auth::user()->id;
 										@if ($userAddresses->count() > 0) 
 										@foreach ($userAddresses as $Address)	
 										@php
-										$getAddressByAddressid = $Address->where('id', $Address->id)->get();
-									//	dd($getAddressByAddressid->address);
-										foreach ($getAddressByAddressid as $post) {
-										//	dd($post->address);
-										}			
-										$exp = 'usr_'.Auth::user()->name.'_';
+										$user_name = camel_case(Auth::user()->name);
+										$exp = 'usr_'.$user_name.'_';
 										$expl = explode($exp,$Address->label);
 										$total = '0.0000';	
 									 											
@@ -46,7 +40,7 @@ $userid = Auth::user()->id;
 																		<tr id="btc_address_{{ $Address->id }} ">
 																			<td> 
 																			
-																			{{ $expl[0] }}	
+																			{{ $expl[1] }}	
 																		   </td>																		</td>
 																			<td> {{ $Address->address }}   </td>
 																			<td> {{ $Address->available_balance }}  BTC </td>
@@ -133,8 +127,8 @@ $userid = Auth::user()->id;
 					</div>
 				</div>
 			<!-- end row -->
-		</div>
-		<!-- end #content -->
+			@endsection
+
 
 		<!-- #new address modal-dialog -->
 		<div class="modal fade" id="modal_new_address">
@@ -167,7 +161,7 @@ $userid = Auth::user()->id;
 			</div>
 		</div>
 
-@endsection
+
 
 
 @foreach ($userAddresses as $Address)	

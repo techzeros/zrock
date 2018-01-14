@@ -1,7 +1,7 @@
 <?php
-
+ 
 use Faker\Generator as Faker;
-
+use App\Models\User\User as User;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) {
     static $password;
 
     return [
@@ -21,5 +21,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
+        'secret_pin' => random_int(1000, 9999),
+        'activated' => 1,
     ];
 });

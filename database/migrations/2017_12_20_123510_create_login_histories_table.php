@@ -16,12 +16,13 @@ class CreateLoginHistoriesTable extends Migration {
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
 			$table->string('ip_address', 191);
 			$table->boolean('user_type')->nullable()->comment('0 for User; 1 for Admin');
 			$table->text('user_agent');
 			$table->text('geoip');
 			$table->timestamps();
+			
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

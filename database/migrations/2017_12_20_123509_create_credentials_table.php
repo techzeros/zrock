@@ -15,13 +15,14 @@ class CreateCredentialsTable extends Migration {
 		Schema::create('credentials', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
-			$table->string('id_one', 191);
-			$table->string('id_two', 191);
+			$table->unsignedInteger('user_id');
+			$table->string('id_one', 191)->nullable();
+			$table->string('id_two', 191)->nullable();
 			$table->boolean('id_one_valid')->default(0);
 			$table->boolean('id_two_valid')->default(0);
 			$table->timestamps();
+			
+			$table->foreign('user_id')->references('id')->on('users');
 		});
 	}
 

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class BtcUserTransaction extends Model
 {
-    protected $table = 'btc_users_transactions';
+    protected $table = 'user_transactions';
+
     protected $fillable = ['user_id', 'type', 'recipient', 'sender', 'time', 'confirmations', 'txid'];
 
     public function user()

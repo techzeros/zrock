@@ -3,8 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content')
-        <!-- begin #content -->
-		<div id="content" class="content">
+
 			
 			<!-- begin row -->
 			<div class="row">
@@ -43,7 +42,4 @@
 			        </div>
 			    </div>
 			</div>
-			<!-- end row -->
-		</div>
-		<!-- end #content -->
 @endsection

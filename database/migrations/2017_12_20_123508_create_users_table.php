@@ -12,9 +12,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function up()
 	{	
-		if (!Schema::hasTable('users')) {
-		//Check First before creating table
-			Schema::create('users', function(Blueprint $table)
+		Schema::create('users', function(Blueprint $table)
 		{
 			$table->increments('id');
 			$table->string('name', 191);
@@ -25,12 +23,9 @@ class CreateUsersTable extends Migration {
 			$table->string('email_token', 191)->nullable();
 			$table->string('remember_token', 100)->nullable();
 			$table->string('status')->nullable();
-			$table->integer('mobile_verified')->nullable();
-			$table->text('mobile_number', 65535)->nullable();
 			$table->timestamps();
 		});
 	}
-}
 
 	/**
 	 * Reverse the migrations.

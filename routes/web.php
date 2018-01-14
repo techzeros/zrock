@@ -55,7 +55,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'app'], function () {
     Route::get('dashboard', 'User\DashboardController@index')->name('user.dashboard');
     Route::get('wallet', 'User\WalletController@index')->name('user.wallet');
     Route::get('transfer-bitcoins', 'User\TransferBitcoinController@index');
-    Route::get('request-bitcoins', 'User\RequestBitcoinController@index');
+    Route::get('request-bitcoins', 'User\RequestBitcoinController@index')->name('user.requestbtc');
+    Route::post('request-bitcoins', 'User\RequestBitcoinController@requestbtc');
     Route::post('wallet', 'User\WalletController@createwallet')->name('user.wallet');
 
 
@@ -83,7 +84,12 @@ Route::get('app/wall', function(){
     //dd( $userAddresses = App\Models\User\BtcUserAddress::getUserAddress());
    //dd($address);
   // return NanoCoinBlockIo::getBlockIo();
+    // return NanoHelper::gbogbotigbo();
 
+    $name = new stdClass();
+    $name->title = 'Mr';
+    // toArray($name);
+    dd($name);
 });
 
 

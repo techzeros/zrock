@@ -17,13 +17,13 @@ class UserWalletAddress extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function getUserAddress()
-    {
-        return BtcUserAddress::where('user_id', Auth::user()->id)
-        ->where('archived', 0)
-        ->orderBy('id', 'desc')
-        ->get();
-    }
+    // public function getUserAddress()
+    // {
+    //     return BtcUserAddress::where('user_id', Auth::user()->id)
+    //     ->where('archived', 0)
+    //     ->orderBy('id', 'desc')
+    //     ->get();
+    // }
 
     // public static function getUserAddress()
     // {
@@ -32,4 +32,5 @@ class UserWalletAddress extends Model
     //     ->orderBy('id', 'desc')
     //     ->get();
     // }
+
 }

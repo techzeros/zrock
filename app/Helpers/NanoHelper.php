@@ -39,13 +39,13 @@ class NanoHelper {
         curl_close();
     }
 
-    public function currencyConverter($amount,$from_Currency,$to_Currency)
+    public function currencyConverter($amount, $from_Currency, $to_Currency)
     {
         $amount = urlencode($amount);
         $from_Currency = urlencode($from_Currency);
         $to_Currency = urlencode($to_Currency);
         $get = "https://finance.google.com/finance/converter?a=$amount&from=$from_Currency&to=$to_Currency";
-        $get = http_get_site($get,true);
+        $get = httpGetSite($get,true);
         $get = explode("<span class=bld>",$get);
         $get = explode("</span>",$get[1]);  
         $converted_amount = preg_replace("/[^0-9\.]/", null, $get[0]);
@@ -99,44 +99,6 @@ class NanoHelper {
         ];
     }
 
-    public function nanoSuccess($text)
-    {
-        return '<div class="alert alert-success"><i class="fa fa-check"></i> '.$text.'</div>';
-    }
-
-    public function nanoError($text)
-    {
-        return '<div class="alert alert-danger"><i class="fa fa-times"></i> '.$text.'</div>';
-    }
-
-    public function nanoInfo($text)
-    {
-        return '<div class="alert alert-info"><i class="fa fa-info-circle"></i> '.$text.'</div>';
-    }
-
-    public function nanoAlertbox($text)
-    {
-        return '<div class="alert alert-success fade in">
-        <span class="close" data-dismiss="alert">×</span>
-        <i class="fa fa-check fa-2x pull-left"></i>
-        <p> '.$text.'</p>
-        </div>';
-    }
-
-    public function userInfo($value)
-    {
-        //$query = DB::table('users')->where('id', $user_id)->first();
-        //return $query->$value;
-        return Auth::user()->$value;
-    }	
-
-
-    public function walletInfo($user_id, $value)
-    {
-        $query = DB::table('btc_users_addresses')->where('user_id', $user_id)->first();
-        return $query->$value;
-    }	
-
     public function addressInfo($address,$value)
     {
         $query = DB::table('btc_users_addresses')->where('address', $address)->get();
@@ -149,23 +111,31 @@ class NanoHelper {
         return $query->$value;
     }	
 
-    public function btcGetUserBalance($user_id)
+    public function getUserBalance($coin_type)
     {
-        $queries = DB::table('btc_users_addresses')->where('user_id', $user_id)
-        ->where('archived', 0)->get();
-        if($queries->count() > 0) {
-            $balance = '0.0000000';
-            foreach ($queries as $query) {    
-                $balance = $balance + $query->available_balance;
-                //  dd($balance);
-            }
-        }
-        else {
-            $balance = '0.0000000';
-        }
+        $address = \Auth::user()->address()->where('archived', $coin_type)->get();
+        
+        return $address->reduce(function ($carry, $address) {
+            return $carry + $address->available_balance;
+        }, 0.000000000);
 
-        return number_format($balance,8);
+        // $queries = \DB::table('user_wallet_addresses')->where('user_id', $user_id)
+        // ->where('archived', 0)->get();
+        // if($queries->count() > 0) {
+        //     $balance = '0.0000000';
+        //     foreach ($queries as $query) {    
+        //         $balance = $balance + $query->available_balance;
+        //         //  dd($balance);
+        //     }
+        // }
+        // else {
+        //     $balance = '0.0000000';
+        // }
+
+        // return number_format($balance,8);
     }
+
+
 
     public function btcGetTotal()
     {
@@ -202,7 +172,7 @@ class NanoHelper {
         return number_format($balance,8);
     }
 
-    public function getUserBalance($user_id, $currency = NULL)
+    public function getUserBalanceHMMMMMMMMMMM($user_id, $currency = NULL)
     {
         $default_currency = Setting::get('default_currency', 'NGN');
         if($default_currency == "USD") {

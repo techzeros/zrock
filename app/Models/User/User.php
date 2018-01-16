@@ -5,8 +5,8 @@ namespace App\Models\User;
 use Auth;
 use App\Models\LoginHistory;
 use App\Models\User\Credential;
-use App\Models\User\BtcUserAddress;
-use App\Models\User\BtcUserTransaction;
+use App\Models\User\UserWalletAddress;
+use App\Models\User\UserTransaction;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -32,22 +32,22 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function credentials()
+    public function credential()
     {
         return $this->hasMany(Credential::class);
     }
 
-    public function btcAddresses()
+    public function address()
     {
-        return $this->hasMany(BtcUserAddress::class);
+        return $this->hasMany(UserWalletAddress::class);
     }
 
-    public function btcTransactions()
+    public function transaction()
     {
-        return $this->hasMany(BtcUserTransaction::class);
+        return $this->hasMany(UserTransaction::class);
     }
 
-    public function loginHistories()
+    public function loginHistory()
     {
         return $this->hasMany(LoginHistory::class)->user();
     }

@@ -86,10 +86,13 @@ Route::get('app/wall', function(){
   // return NanoCoinBlockIo::getBlockIo();
     // return NanoHelper::gbogbotigbo();
 
-    $name = new stdClass();
-    $name->title = 'Mr';
-    // toArray($name);
-    dd($name);
+    // $ano = function ($carry, $item) { 
+    //     return $carry + $item;
+    // };
+
+    // dd(collect([2, 4, 6])->reduce($ano, 5));
+    // dd(\Auth::user()->address);
+    return NanoHelper::getUserBalance("3Qs56hQ3S4VPj6VTAqfJhfFU6fPKDm3np1");
 });
 
 

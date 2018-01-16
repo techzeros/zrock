@@ -30,8 +30,7 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        },
-        "files" : ["app/Helpers/NanoHelper.php"]
+        }
     },
     "autoload-dev": {
         "psr-4": {

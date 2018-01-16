@@ -5,7 +5,7 @@ namespace App\Models\User;
 use App\Models\User\User;
 use Illuminate\Database\Eloquent\Model;
 
-class BtcUserTransaction extends Model
+class UserTransaction extends Model
 {
     protected $table = 'user_transactions';
 
